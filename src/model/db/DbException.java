@@ -1,4 +1,4 @@
-package domain.db;
+package model.db;
 
 public class DbException extends RuntimeException {
     private static final long serialVersionUID = 1L;

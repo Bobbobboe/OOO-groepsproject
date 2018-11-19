@@ -1,4 +1,4 @@
-package domain.db;
+package model.db;
 
 public interface DataBase {
 }

@@ -1,4 +1,4 @@
-package view.panels;
+package view.pane;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,24 +11,25 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
-public class QuestionOverviewPane extends GridPane {
+
+public class CategoryOverviewPane extends GridPane {
 	private TableView table;
 	private Button btnNew;
 	
-	public QuestionOverviewPane() {
+	public CategoryOverviewPane() {
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
         
-		this.add(new Label("Questions:"), 0, 0, 1, 1);
+		this.add(new Label("Categories:"), 0, 0, 1, 1);
 		
 		table = new TableView<>();
 		table.setPrefWidth(REMAINING);
-        TableColumn nameCol = new TableColumn<>("Question");
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("question"));
+        TableColumn nameCol = new TableColumn<>("Name");
+        nameCol.setCellValueFactory(new PropertyValueFactory("title"));
         table.getColumns().add(nameCol);
-        TableColumn descriptionCol = new TableColumn<>("Category");
-        descriptionCol.setCellValueFactory(new PropertyValueFactory("category"));
+        TableColumn descriptionCol = new TableColumn<>("Description");
+        descriptionCol.setCellValueFactory(new PropertyValueFactory("description"));
         table.getColumns().add(descriptionCol);
 		this.add(table, 0, 1, 2, 6);
 		

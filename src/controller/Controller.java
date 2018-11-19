@@ -1,4 +1,4 @@
-package domain.controller;
+package controller;
 
 public class Controller {
 }

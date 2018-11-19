@@ -1,6 +1,4 @@
-package view.panels;
-
-import java.util.Observer;
+package view.pane;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

@@ -1,4 +1,4 @@
-package view.panels;
+package view.pane;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
