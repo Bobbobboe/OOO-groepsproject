@@ -1,4 +1,4 @@
 package model;
 
-public interface Category {
+public class Category {
 }

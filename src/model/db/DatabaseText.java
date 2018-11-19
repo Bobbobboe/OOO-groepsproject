@@ -1,4 +1,4 @@
 package model.db;
 
-public class DatabaseText implements DataBase {
+public class DatabaseText implements Database {
 }
