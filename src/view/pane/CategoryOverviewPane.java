@@ -1,5 +1,6 @@
 package view.pane;
 
+import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -15,6 +16,7 @@ import javafx.scene.layout.GridPane;
 public class CategoryOverviewPane extends GridPane {
 	private TableView table;
 	private Button btnNew;
+	private Controller controller;
 	
 	public CategoryOverviewPane() {
 		this.setPadding(new Insets(5, 5, 5, 5));
