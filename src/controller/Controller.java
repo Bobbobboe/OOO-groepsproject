@@ -2,6 +2,7 @@ package controller;
 
 import javafx.collections.ObservableList;
 import model.Category;
+import model.db.Database;
 import model.db.DatabaseText;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class Controller {
     }
 
     public void addCategorys() {
-        DatabaseText db = new DatabaseText();
+        Database db = new DatabaseText();
         db.fillListQuestions();
         categories.addAll(db.getAll());
     }

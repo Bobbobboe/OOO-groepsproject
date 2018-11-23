@@ -13,4 +13,6 @@ public interface Database {
     void delete(int id);
 
     List<Category> getAll();
+
+    void fillListQuestions();
 }
