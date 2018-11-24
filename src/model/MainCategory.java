@@ -1,10 +1,14 @@
 package model;
 
+import model.db.Database;
+import model.db.DatabaseText;
+
 public class MainCategory implements Category  {
 
     private String name;
     private String description;
     private String type = "main";
+    private Database database = new DatabaseText();
 
     public MainCategory(String name, String description) {
         setName(name);

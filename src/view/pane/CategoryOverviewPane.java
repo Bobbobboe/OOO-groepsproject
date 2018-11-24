@@ -1,15 +1,18 @@
 package view.pane;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import model.Category;
+import model.MainCategory;
+import model.db.DatabaseText;
+
+import java.util.List;
 
 
 public class CategoryOverviewPane extends GridPane {
@@ -25,6 +28,8 @@ public class CategoryOverviewPane extends GridPane {
 		
 		table = new TableView<>();
 		table.setPrefWidth(REMAINING);
+        ObservableList<Category> categories = (ObservableList)new DatabaseText().getAll();
+        table.setItems(categories);
         TableColumn nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory("title"));
         table.getColumns().add(nameCol);

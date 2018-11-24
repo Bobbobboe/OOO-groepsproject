@@ -41,7 +41,7 @@ public class DatabaseText implements Database {
         List<Category> c = null;
 
         try {
-            FileInputStream fileIn = new FileInputStream("Categorie.txt");
+            FileInputStream fileIn = new FileInputStream("src/model/db/Categorie.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             c = (List<Category>) in.readObject();
             in.close();
