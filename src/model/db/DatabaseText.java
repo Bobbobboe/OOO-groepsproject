@@ -44,19 +44,14 @@ public class DatabaseText implements Database {
             FileInputStream fileIn = new FileInputStream("src/model/db/Categorie.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             c = (List<Category>) in.readObject();
+
+
             in.close();
             fileIn.close();
-        }
+            } catch (Exception b) {
 
-        catch (IOException i) {
-            i.printStackTrace();
-            return;
-        }
+            }
 
-        catch (ClassNotFoundException a) {
-            System.out.println("Categorie.txt not found");
-            return;
-        }
 
         if(c != null) {
             categories = c;
