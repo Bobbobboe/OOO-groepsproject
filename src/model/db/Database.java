@@ -1,18 +1,24 @@
 package model.db;
 
 import model.Category;
+import model.Question;
 
 import java.util.List;
 
 public interface Database {
 
     void add(Category category);
+    void add(Question question);
 
-    Category get(int id);
+    Category getCategory(int id);
+    Question getQuestion(int id);
 
-    void delete(int id);
+    void deleteCategory(int id);
+    void deleteQuestion(int id);
 
-    List<Category> getAll();
+    List<Category> getAllCategories();
+    List<Question> getAllQuestions();
 
+    void fillListCategories();
     void fillListQuestions();
 }

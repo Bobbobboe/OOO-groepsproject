@@ -1,48 +1,77 @@
 package model.db;
 import model.Category;
-import model.CategoryFactory;
-import model.MainCategory;
 import model.Question;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
 public class DatabaseText implements Database, Serializable {
 
     private List<Category> categories = new ArrayList<>();
+    private List<Question> questions = new ArrayList<>();
+
+    public static String CATEGORY_TXT = "src/model/db/Category.txt";
+    public static String QUESTION_TXT = "src/model/db/Question.txt";
 
     public DatabaseText() {
+        fillListCategories();
         fillListQuestions();
     }
 
     @Override
     public void add(Category catergory) {
         categories.add(catergory);
-        updateDb();
+        updateCategories();
     }
 
     @Override
-    public Category get(int id) {
+    public void add(Question question) {
+        questions.add(question);
+        updateQuestions();
+    }
+
+    @Override
+    public Category getCategory(int id) {
         return categories.get(id);
     }
 
     @Override
-    public void delete(int id) {
-        categories.remove(get(id));
-        updateDb();
+    public Question getQuestion(int id) {
+        return questions.get(id);
+    }
+
+
+    @Override
+    public void deleteCategory(int id) {
+        categories.remove(id);
+        updateCategories();
     }
 
     @Override
-    public List<Category> getAll() {
+    public void deleteQuestion(int id) {
+        questions.remove(id);
+    }
+
+    @Override
+    public List<Category> getAllCategories() {
         return categories;
     }
 
-    public void fillListQuestions() {
+    @Override
+    public List<Question> getAllQuestions() {
+        return questions;
+    }
+
+
+
+
+    @SuppressWarnings("Duplicates")
+    public void fillListCategories() {
         List<Category> c = null;
 
         try {
-            FileInputStream fileIn = new FileInputStream("src/model/db/Categorie.txt");
+            FileInputStream fileIn = new FileInputStream(CATEGORY_TXT);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             c = (List<Category>) in.readObject();
 
@@ -50,7 +79,7 @@ public class DatabaseText implements Database, Serializable {
             in.close();
             fileIn.close();
             } catch (Exception b) {
-
+                b.printStackTrace();
             }
 
 
@@ -59,18 +88,60 @@ public class DatabaseText implements Database, Serializable {
         }
 
         else {
-            System.out.println("No serialized object found in Categorie.txt");
+            System.out.println("No serialized object found in " + CATEGORY_TXT);
         }
     }
 
-    private void updateDb() {
+    @SuppressWarnings("Duplicates")
+    @Override
+    public void fillListQuestions() {
+        List<Question> q = null;
+
         try {
-            FileOutputStream fileOut = new FileOutputStream("src/model/db/Categorie.txt");
+            FileInputStream fileIn = new FileInputStream(QUESTION_TXT);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            q = (List<Question>) in.readObject();
+
+
+            in.close();
+            fileIn.close();
+        } catch (Exception b) {
+            b.printStackTrace();
+        }
+
+
+        if(q != null) {
+            questions = q;
+        }
+
+        else {
+            System.out.println("No serialized object found in " + QUESTION_TXT);
+        }
+    }
+
+    @SuppressWarnings("Duplicates")
+    private void updateCategories() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream(CATEGORY_TXT);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(categories);
             out.close();
             fileOut.close();
-            System.out.printf("Serialized data is saved to categorie.txt");
+            System.out.printf("Serialized data is saved to " + CATEGORY_TXT);
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+    @SuppressWarnings("Duplicates")
+    private void updateQuestions() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream(QUESTION_TXT);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(questions);
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialized data is saved to " + QUESTION_TXT);
         } catch (IOException i) {
             i.printStackTrace();
         }
