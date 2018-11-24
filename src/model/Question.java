@@ -1,16 +1,17 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Question {
+public class Question implements Serializable {
 
     private String question;
     private List<String> statments;
     private Category category;
     private String feedback;
 
-    private Question(String question, Category category, String feedback){
+    public Question(String question, Category category, String feedback) {
         setQuestion(question);
         statments = new ArrayList<>();
         setCategory(category);

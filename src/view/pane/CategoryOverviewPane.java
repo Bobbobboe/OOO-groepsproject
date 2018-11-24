@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import model.Category;
+import model.MainCategory;
 import model.db.Database;
 import model.db.DatabaseText;
 
@@ -23,6 +24,11 @@ public class CategoryOverviewPane extends GridPane {
 
     public CategoryOverviewPane() {
         Database db = new DatabaseText();
+
+//        db.add(new MainCategory("Design Principles", "The SOLID design principles"));
+//        db.add(new MainCategory("Design pattersn", "Design patterns learned this year"));
+//        db.add(new MainCategory("Java", "Java extra's"));
+//        db.add(new MainCategory("UML", "Technique for drawing class diagrams"));
 
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);

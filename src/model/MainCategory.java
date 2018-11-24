@@ -35,7 +35,7 @@ public class MainCategory implements Category, Serializable {
     }
 
     @Override
-    public String getType() {
-        return type;
+    public String toString() {
+        return this.name;
     }
 }

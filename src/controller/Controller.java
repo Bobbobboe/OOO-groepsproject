@@ -4,6 +4,8 @@ import model.Category;
 import model.CategoryFactory;
 import model.DomainExeption;
 import model.Observable;
+import model.db.Database;
+import model.db.DatabaseText;
 import view.Observer;
 
 import java.util.ArrayList;
@@ -13,10 +15,10 @@ public class Controller implements Observable {
 
     private List<Category> categories;
     private List<Observer> observers;
+    private Database db;
 
     public Controller() {
-        categories = new ArrayList<>();
-        observers = new ArrayList<>();
+         db = new DatabaseText();
     }
 
     public void enrollCategory(String name, String description, Category category) throws DomainExeption {
@@ -27,7 +29,7 @@ public class Controller implements Observable {
 
     public void addCategory(Category category) throws DomainExeption {
         if(category == null) throw new DomainExeption();
-        categories.add(category);
+        db.getAllCategories().add(category);
     }
 
     @Override

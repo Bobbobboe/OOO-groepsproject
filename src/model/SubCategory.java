@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class SubCategory extends MainCategory implements Category, Serializable {
 
     private Category category;
-    private String type = "sub";
 
     public SubCategory(String name, String description, Category category) {
         super(name, description);
@@ -20,7 +19,8 @@ public class SubCategory extends MainCategory implements Category, Serializable 
         this.category = category;
     }
 
-    public String getType() {
-        return type;
+    @Override
+    public String toString() {
+        return this.category.toString();
     }
 }
