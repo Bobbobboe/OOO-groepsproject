@@ -18,20 +18,21 @@ import model.db.DatabaseText;
 
 
 public class CategoryOverviewPane extends GridPane {
-	private TableView table;
-	private Button btnNew;
+    private TableView table;
+    private Button btnNew;
 
     public CategoryOverviewPane() {
         Database db = new DatabaseText();
-		this.setPadding(new Insets(5, 5, 5, 5));
+
+        this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
-        
-		this.add(new Label("Categories:"), 0, 0, 1, 1);
-		
-		table = new TableView<>();
-		table.setPrefWidth(REMAINING);
-        ObservableList<Category> categories = FXCollections.observableArrayList(db.getAll());
+
+        this.add(new Label("Categories:"), 0, 0, 1, 1);
+
+        table = new TableView<>();
+        table.setPrefWidth(REMAINING);
+        ObservableList<Category> categories = FXCollections.observableArrayList(db.getAllCategories());
         table.setItems(categories);
         TableColumn nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory("name"));
@@ -40,17 +41,29 @@ public class CategoryOverviewPane extends GridPane {
         descriptionCol.setCellValueFactory(new PropertyValueFactory("description"));
         table.getColumns().add(descriptionCol);
 		this.add(table, 0, 1, 2, 6);
+		
 		btnNew = new Button("New");
 		this.add(btnNew, 0, 11, 1, 1);
 	}
-
-	//TODO Where does newAction come from?
+	
 	public void setNewAction(EventHandler<ActionEvent> newAction) {
-        btnNew.setOnAction(newAction);
+		btnNew.setOnAction(newAction);
 	}
 	
 	public void setEditAction(EventHandler<MouseEvent> editAction) {
 		table.setOnMouseClicked(editAction);
 	}
+
+        btnNew = new Button("New");
+        this.add(btnNew, 0, 11, 1, 1);
+    }
+
+    public void setNewAction(EventHandler<ActionEvent> newAction) {
+        btnNew.setOnAction(newAction);
+    }
+
+    public void setEditAction(EventHandler<MouseEvent> editAction) {
+        table.setOnMouseClicked(editAction);
+    }
 
 }
