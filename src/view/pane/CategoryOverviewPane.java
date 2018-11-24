@@ -22,6 +22,7 @@ public class CategoryOverviewPane extends GridPane {
 	private Button btnNew;
 	
 	public CategoryOverviewPane() {
+        Database db = new DatabaseText();
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
@@ -30,11 +31,10 @@ public class CategoryOverviewPane extends GridPane {
 		
 		table = new TableView<>();
 		table.setPrefWidth(REMAINING);
-        Database db = new DatabaseText();
         ObservableList<Category> categories = FXCollections.observableArrayList(db.getAll());
         table.setItems(categories);
         TableColumn nameCol = new TableColumn<>("Name");
-        nameCol.setCellValueFactory(new PropertyValueFactory("title"));
+        nameCol.setCellValueFactory(new PropertyValueFactory("name"));
         table.getColumns().add(nameCol);
         TableColumn descriptionCol = new TableColumn<>("Description");
         descriptionCol.setCellValueFactory(new PropertyValueFactory("description"));
