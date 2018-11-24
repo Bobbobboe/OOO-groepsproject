@@ -1,5 +1,6 @@
 package view.pane;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,7 +29,7 @@ public class CategoryOverviewPane extends GridPane {
 		
 		table = new TableView<>();
 		table.setPrefWidth(REMAINING);
-        ObservableList<Category> categories = (ObservableList)new DatabaseText().getAll();
+        ObservableList<Category> categories = FXCollections.observableArrayList(new DatabaseText().getAll());
         table.setItems(categories);
         TableColumn nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory("title"));
