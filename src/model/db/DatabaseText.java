@@ -1,13 +1,14 @@
 package model.db;
 import model.Category;
 import model.CategoryFactory;
+import model.MainCategory;
 import model.Question;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-public class DatabaseText implements Database {
+public class DatabaseText implements Database, Serializable {
 
     private List<Category> categories = new ArrayList<>();
 
@@ -64,7 +65,7 @@ public class DatabaseText implements Database {
 
     private void updateDb() {
         try {
-            FileOutputStream fileOut = new FileOutputStream("Categorie.txt");
+            FileOutputStream fileOut = new FileOutputStream("src/model/db/Categorie.txt");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(categories);
             out.close();

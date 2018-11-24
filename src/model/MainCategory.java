@@ -3,7 +3,9 @@ package model;
 import model.db.Database;
 import model.db.DatabaseText;
 
-public class MainCategory implements Category  {
+import java.io.Serializable;
+
+public class MainCategory implements Category, Serializable {
 
     private String name;
     private String description;

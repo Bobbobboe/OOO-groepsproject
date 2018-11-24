@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import model.Category;
 import model.MainCategory;
+import model.db.Database;
 import model.db.DatabaseText;
 
 import java.util.List;
@@ -29,7 +30,8 @@ public class CategoryOverviewPane extends GridPane {
 		
 		table = new TableView<>();
 		table.setPrefWidth(REMAINING);
-        ObservableList<Category> categories = FXCollections.observableArrayList(new DatabaseText().getAll());
+        Database db = new DatabaseText();
+        ObservableList<Category> categories = FXCollections.observableArrayList(db.getAll());
         table.setItems(categories);
         TableColumn nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory("title"));

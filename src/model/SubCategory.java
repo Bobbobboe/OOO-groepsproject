@@ -1,6 +1,8 @@
 package model;
 
-public class SubCategory extends MainCategory implements Category{
+import java.io.Serializable;
+
+public class SubCategory extends MainCategory implements Category, Serializable {
 
     private Category category;
     private String type = "sub";
