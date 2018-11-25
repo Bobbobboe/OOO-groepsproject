@@ -2,10 +2,7 @@ package controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Category;
-import model.CategoryFactory;
-import model.DomainExeption;
-import model.Observable;
+import model.*;
 import model.db.Database;
 import model.db.DatabaseText;
 import view.Observer;
@@ -36,6 +33,10 @@ public class Controller implements Observable {
 
     public ObservableList<Category> getCategories(){
         return FXCollections.observableArrayList(db.getAllCategories());
+    }
+
+    public ObservableList<Question> getQuestions(){
+        return FXCollections.observableArrayList(db.getAllQuestions());
     }
 
     @Override

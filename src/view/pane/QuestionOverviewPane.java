@@ -1,5 +1,6 @@
 package view.pane;
 
+import controller.Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,7 +23,7 @@ public class QuestionOverviewPane extends GridPane {
     private Button btnNew;
 
     public QuestionOverviewPane() {
-        Database db = new DatabaseText();
+        Controller service = new Controller();
 
 //        db.add(new Question("Welk patroon definieert een familie van algoritmes, kapselt ze in en maakt ze uitwisselbaar ?", db.getCategory(0), "Positive"));
 //        db.add(new Question("Welk ontwerp patroon is het minst van toepassing op het strategy patroon ?", db.getCategory(1), "Negative"));
@@ -31,7 +32,8 @@ public class QuestionOverviewPane extends GridPane {
         this.setVgap(5);
         this.setHgap(5);
 
-        ObservableList<Question> questions = FXCollections.observableArrayList(db.getAllQuestions());
+        //ObservableList<Question> questions = FXCollections.observableArrayList(db.getAllQuestions());
+        ObservableList<Question>questions = service.getQuestions();
 
         this.add(new Label("Questions:"), 0, 0, 1, 1);
 
