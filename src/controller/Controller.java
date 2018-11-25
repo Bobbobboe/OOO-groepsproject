@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.Category;
 import model.CategoryFactory;
 import model.DomainExeption;
@@ -30,6 +32,10 @@ public class Controller implements Observable {
     public void addCategory(Category category) throws DomainExeption {
         if(category == null) throw new DomainExeption();
         db.getAllCategories().add(category);
+    }
+
+    public ObservableList<Category> getCategories(){
+        return FXCollections.observableArrayList(db.getAllCategories());
     }
 
     @Override

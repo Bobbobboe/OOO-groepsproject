@@ -1,5 +1,6 @@
 package view.pane;
 
+import controller.Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,7 +24,7 @@ public class CategoryOverviewPane extends GridPane {
     private Button btnNew;
 
     public CategoryOverviewPane() {
-        Database db = new DatabaseText();
+        Controller service = new Controller();
 
 //        db.add(new MainCategory("Design Principles", "The SOLID design principles"));
 //        db.add(new MainCategory("Design pattersn", "Design patterns learned this year"));
@@ -38,7 +39,8 @@ public class CategoryOverviewPane extends GridPane {
 
         table = new TableView<>();
         table.setPrefWidth(REMAINING);
-        ObservableList<Category> categories = FXCollections.observableArrayList(db.getAllCategories());
+        //ObservableList<Category> categories = FXCollections.observableArrayList(db.getAllCategories());
+        ObservableList<Category> categories = service.getCategories();
         table.setItems(categories);
         TableColumn nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory("name"));
