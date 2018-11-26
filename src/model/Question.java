@@ -51,4 +51,9 @@ public class Question implements Serializable {
         if(feedback.trim().isEmpty() || feedback == null) throw new DomainExeption();
         this.feedback = feedback;
     }
+
+    public String getSolution() {
+        return this.statments.get(0);
+    }
+
 }

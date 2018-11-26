@@ -25,9 +25,6 @@ public class QuestionOverviewPane extends GridPane {
     public QuestionOverviewPane() {
         Controller service = new Controller();
 
-//        db.add(new Question("Welk patroon definieert een familie van algoritmes, kapselt ze in en maakt ze uitwisselbaar ?", db.getCategory(0), "Positive"));
-//        db.add(new Question("Welk ontwerp patroon is het minst van toepassing op het strategy patroon ?", db.getCategory(1), "Negative"));
-
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);

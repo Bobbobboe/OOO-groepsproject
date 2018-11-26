@@ -32,10 +32,18 @@ public class Controller implements Observable {
     }
 
     public ObservableList<Category> getCategories(){
+//        db.add(new MainCategory("Design Principles", "The SOLID design principles"));
+//        db.add(new MainCategory("Design pattersn", "Design patterns learned this year"));
+//        db.add(new MainCategory("Java", "Java extra's"));
+//        db.add(new MainCategory("UML", "Technique for drawing class diagrams"));
+
         return FXCollections.observableArrayList(db.getAllCategories());
     }
 
     public ObservableList<Question> getQuestions(){
+//        db.add(new Question("Welk patroon definieert een familie van algoritmes, kapselt ze in en maakt ze uitwisselbaar ?", db.getCategory(0), "Positive"));
+//        db.add(new Question("Welk ontwerp patroon is het minst van toepassing op het strategy patroon ?", db.getCategory(1), "Negative"));
+
         return FXCollections.observableArrayList(db.getAllQuestions());
     }
 
