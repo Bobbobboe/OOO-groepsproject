@@ -4,7 +4,7 @@ import view.Observer;
 
 import java.io.Serializable;
 
-public class SubCategory extends MainCategory {
+public class SubCategory extends Category {
 
     private Category category;
 
