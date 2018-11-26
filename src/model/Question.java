@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Question implements Serializable {
+    private static final long serialversionUID = 129348940L;
 
     private String question;
     private List<String> statments;
