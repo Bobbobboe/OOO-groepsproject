@@ -28,7 +28,7 @@ public class Controller implements Observable {
 
     public void addCategory(Category category) throws DomainExeption {
         if(category == null) throw new DomainExeption();
-        db.getAllCategories().add(category);
+        db.add(category);
     }
 
     public ObservableList<Category> getCategories(){
