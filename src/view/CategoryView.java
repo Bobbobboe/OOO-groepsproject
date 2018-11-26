@@ -1,4 +1,10 @@
 package view;
 
-public class CategoryView {
+public class CategoryView implements View{
+
+
+    @Override
+    public void update() {
+
+    }
 }

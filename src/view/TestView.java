@@ -1,4 +1,9 @@
 package view;
 
-public class TestView {
+public class TestView implements View{
+
+    @Override
+    public void update() {
+
+    }
 }

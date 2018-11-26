@@ -1,4 +1,9 @@
 package view;
 
-public class QuestionView {
+public class QuestionView implements View{
+
+    @Override
+    public void update() {
+
+    }
 }
