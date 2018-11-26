@@ -1,8 +1,10 @@
 package model;
 
+import view.Observer;
+
 import java.io.Serializable;
 
-public class SubCategory extends MainCategory implements Category, Serializable {
+public class SubCategory extends MainCategory {
 
     private Category category;
 
@@ -22,5 +24,20 @@ public class SubCategory extends MainCategory implements Category, Serializable 
     @Override
     public String toString() {
         return this.category.toString();
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+
+    }
+
+    @Override
+    public void notifyObserver() {
+
     }
 }

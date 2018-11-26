@@ -2,10 +2,11 @@ package model;
 
 import model.db.Database;
 import model.db.DatabaseText;
+import view.Observer;
 
 import java.io.Serializable;
 
-public class MainCategory implements Category, Serializable {
+public class MainCategory implements Category {
 
     private String name;
     private String description;
@@ -37,5 +38,20 @@ public class MainCategory implements Category, Serializable {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+
+    }
+
+    @Override
+    public void notifyObserver() {
+
     }
 }
