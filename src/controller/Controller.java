@@ -7,10 +7,9 @@ import model.db.Database;
 import model.db.DatabaseText;
 import view.Observer;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Controller implements Observable {
+public class Controller implements Subject {
 
     private List<Category> categories;
     private List<Observer> observers;
