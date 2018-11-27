@@ -6,10 +6,8 @@ import model.*;
 import model.db.Database;
 import model.db.DatabaseText;
 import view.Observer;
-import view.pane.CategoryDetailPane;
-import view.pane.CategoryOverviewPane;
-import view.pane.QuestionDetailPane;
-import view.pane.QuestionOverviewPane;
+import view.pane.*;
+
 import java.util.List;
 
 public class Controller implements Subject {
@@ -49,6 +47,10 @@ public class Controller implements Subject {
         return FXCollections.observableArrayList(db.getAllQuestions());
     }
 
+    /**
+     * The methods for the front UI
+     * All the panes
+     */
     public QuestionOverviewPane showQuestionOverviewPane(){
         return new QuestionOverviewPane();
     }
@@ -65,6 +67,18 @@ public class Controller implements Subject {
         return new CategoryDetailPane();
     }
 
+    public TestPane showtestPane(){
+        return new TestPane();
+    }
+
+    public MessagePane messagePane(){
+        return new MessagePane();
+    }
+
+    /**
+     * Methods for the observer patterns
+     *
+     */
     @Override
     public void addObserver(Observer observer) {
         observers.add(observer);
