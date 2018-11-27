@@ -22,9 +22,9 @@ import model.db.DatabaseText;
 public class CategoryOverviewPane extends GridPane {
     private TableView table;
     private Button btnNew;
+    private Controller service = new Controller();
 
     public CategoryOverviewPane() {
-        Controller service = new Controller();
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);

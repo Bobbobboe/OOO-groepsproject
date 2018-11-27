@@ -6,7 +6,10 @@ import model.*;
 import model.db.Database;
 import model.db.DatabaseText;
 import view.Observer;
-
+import view.pane.CategoryDetailPane;
+import view.pane.CategoryOverviewPane;
+import view.pane.QuestionDetailPane;
+import view.pane.QuestionOverviewPane;
 import java.util.List;
 
 public class Controller implements Subject {
@@ -44,6 +47,22 @@ public class Controller implements Subject {
 //        db.add(new Question("Welk ontwerp patroon is het minst van toepassing op het strategy patroon ?", db.getCategory(1), "Negative"));
 
         return FXCollections.observableArrayList(db.getAllQuestions());
+    }
+
+    public QuestionOverviewPane showQuestionOverviewPane(){
+        return new QuestionOverviewPane();
+    }
+
+    public CategoryOverviewPane showCategoryOverviewPane(){
+        return new CategoryOverviewPane();
+    }
+
+    public QuestionDetailPane popupQuestionDetailPane(){
+        return new QuestionDetailPane();
+    }
+
+    public CategoryDetailPane popupCategoryDetailPane(){
+        return new CategoryDetailPane();
     }
 
     @Override

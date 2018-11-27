@@ -1,5 +1,6 @@
 package application;
 
+import controller.Controller;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -13,16 +14,21 @@ import view.pane.QuestionDetailPane;
 import view.pane.QuestionOverviewPane;
 import view.pane.TestPane;
 
+import java.security.SecureRandom;
+import java.text.StringCharacterIterator;
+
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
         try {
-            QuestionOverviewPane questionOverviewPane = new QuestionOverviewPane();
-            QuestionDetailPane questionDetailPane = new QuestionDetailPane();
+            Controller service = new Controller();
 
-            CategoryOverviewPane categoryOverviewPanel = new CategoryOverviewPane();
-            CategoryDetailPane categoryDetailPanel = new CategoryDetailPane();
+            QuestionOverviewPane questionOverviewPane = service.showQuestionOverviewPane();//new QuestionOverviewPane();
+            QuestionDetailPane questionDetailPane = service.popupQuestionDetailPane();//new QuestionDetailPane();
+
+            CategoryOverviewPane categoryOverviewPanel = service.showCategoryOverviewPane();//new CategoryOverviewPane();
+            CategoryDetailPane categoryDetailPanel = service.popupCategoryDetailPane();//new CategoryDetailPane();
 
             TestPane testPane = new TestPane();
             MessagePane messagePane = new MessagePane();
