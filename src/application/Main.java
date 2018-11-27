@@ -23,6 +23,7 @@ public class Main extends Application {
 
         try {
             Controller service = new Controller();
+            service.setStage(primaryStage);
 
             QuestionOverviewPane questionOverviewPane = service.showQuestionOverviewPane();//new QuestionOverviewPane();
             QuestionDetailPane questionDetailPane = service.popupQuestionDetailPane();//new QuestionDetailPane();
@@ -30,21 +31,23 @@ public class Main extends Application {
             CategoryOverviewPane categoryOverviewPanel = service.showCategoryOverviewPane();//new CategoryOverviewPane();
             CategoryDetailPane categoryDetailPanel = service.popupCategoryDetailPane();//new CategoryDetailPane();
 
-            TestPane testPane = new TestPane();
-            MessagePane messagePane = new MessagePane();
+            TestPane testPane = service.showtestPane();//new TestPane();
+            MessagePane messagePane = service.showMessagePane();new MessagePane();
 
-            Group root = new Group();
-            Scene scene = new Scene(root, 750, 400);
+            Group root = service.getGroup(); //new Group();
+            service.setScene(root, 750, 400);//new Scene(root, 750, 400);
+            Scene scene = service.getScene();
 
-            BorderPane borderPane = new AssesMainPane(messagePane, categoryOverviewPanel, questionOverviewPane);
+            service.setBorderPane(new AssesMainPane(messagePane, categoryOverviewPanel, questionOverviewPane));//new AssesMainPane(messagePane, categoryOverviewPanel, questionOverviewPane);
+            BorderPane borderPane = service.getBorderPane();
             borderPane.prefHeightProperty().bind(scene.heightProperty());
             borderPane.prefWidthProperty().bind(scene.widthProperty());
 
             root.getChildren().add(borderPane);
-            primaryStage.setScene(scene);
-            primaryStage.sizeToScene();
+            service.getStage().setScene(scene);
+            service.getStage().sizeToScene();
+            service.showStage();
 
-            primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -2,6 +2,10 @@ package controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import model.*;
 import model.db.Database;
 import model.db.DatabaseText;
@@ -15,6 +19,10 @@ public class Controller implements Subject {
     private List<Category> categories;
     private List<Observer> observers;
     private Database db;
+    Stage primaryStage;
+    Scene scene;
+    AssesMainPane assesMainPane;
+    Group root = new Group();
 
     public Controller() {
          db = new DatabaseText();
@@ -71,8 +79,43 @@ public class Controller implements Subject {
         return new TestPane();
     }
 
-    public MessagePane messagePane(){
+    public MessagePane showMessagePane(){
         return new MessagePane();
+    }
+
+    //Methods for the stage component
+    public void setStage(Stage primaryStage){
+        this.primaryStage = primaryStage;
+    }
+
+    public Stage getStage(){
+        return primaryStage;
+    }
+
+    //Methods for borderPane component
+    public Group getGroup(){
+        return root;
+    }
+
+    //Methods for scene
+    public void setScene(Group root, int width, int height) {
+        scene = new Scene(root, width, height);
+    }
+
+    public Scene getScene(){
+        return this.scene;
+    }
+
+    //Methods for borderpane
+    public void setBorderPane(AssesMainPane mainPane){
+        this.assesMainPane = mainPane;
+    }
+    public BorderPane getBorderPane(){
+        return assesMainPane;
+    }
+
+    public void showStage(){
+        primaryStage.show();
     }
 
     /**
