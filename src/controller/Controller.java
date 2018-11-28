@@ -15,8 +15,6 @@ import view.pane.*;
 import java.util.List;
 
 public class Controller implements Subject {
-
-    private List<Category> categories;
     private List<Observer> observers;
     private Database db;
     Stage primaryStage;
@@ -37,6 +35,13 @@ public class Controller implements Subject {
     public void addCategory(Category category) throws DomainExeption {
         if(category == null) throw new DomainExeption();
         db.add(category);
+        notifyObserver();
+    }
+
+    public void addQuestion(Question question) {
+        if(question == null) throw new DomainExeption();
+        db.add(question);
+        notifyObserver();
     }
 
     public ObservableList<Category> getCategories(){
