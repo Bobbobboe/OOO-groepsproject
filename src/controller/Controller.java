@@ -2,9 +2,12 @@ package controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.*;
 import model.db.Database;
@@ -18,6 +21,7 @@ public class Controller implements Subject {
     private List<Observer> observers;
     private Database db;
     Stage primaryStage;
+    Stage categoryStage;
     Scene scene;
     AssesMainPane assesMainPane;
     Group root = new Group();
@@ -69,7 +73,20 @@ public class Controller implements Subject {
     }
 
     public CategoryOverviewPane showCategoryOverviewPane(){
-        return new CategoryOverviewPane();
+        CategoryOverviewPane pane =  new CategoryOverviewPane();
+        pane.setNewAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                final Stage dialog = new Stage();
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.initOwner(primaryStage);
+
+                Scene dialogScene = new Scene(new CategoryDetailPane(), 300, 200);
+                dialog.setScene(dialogScene);
+                dialog.show();
+            }
+        });
+        return pane;
     }
 
     public QuestionDetailPane popupQuestionDetailPane(){
