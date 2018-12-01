@@ -25,6 +25,8 @@ public class Controller implements Subject {
     Scene scene;
     AssesMainPane assesMainPane;
     Group root = new Group();
+    CategoryDetailPane categoryDetailPane = new CategoryDetailPane();
+    QuestionDetailPane questionDetailPane = new QuestionDetailPane();
 
     public Controller() {
          db = new DatabaseText();
@@ -69,7 +71,20 @@ public class Controller implements Subject {
      * All the panes
      */
     public QuestionOverviewPane showQuestionOverviewPane(){
-        return new QuestionOverviewPane();
+        QuestionOverviewPane pane = new QuestionOverviewPane();
+        pane.setNewAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                final Stage popup = new Stage();
+                popup.initModality(Modality.APPLICATION_MODAL);
+                popup.initOwner(primaryStage);
+
+                Scene popupScene = new Scene(questionDetailPane);
+                popup.setScene(popupScene);
+                popup.show();
+            }
+        });
+        return pane;
     }
 
     public CategoryOverviewPane showCategoryOverviewPane(){
@@ -77,24 +92,24 @@ public class Controller implements Subject {
         pane.setNewAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                final Stage dialog = new Stage();
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.initOwner(primaryStage);
+                final Stage popup = new Stage();
+                popup.initModality(Modality.APPLICATION_MODAL);
+                popup.initOwner(primaryStage);
 
-                Scene dialogScene = new Scene(new CategoryDetailPane(), 300, 200);
-                dialog.setScene(dialogScene);
-                dialog.show();
+                Scene dialogScene = new Scene(categoryDetailPane);
+                popup.setScene(dialogScene);
+                popup.show();
             }
         });
         return pane;
     }
 
     public QuestionDetailPane popupQuestionDetailPane(){
-        return new QuestionDetailPane();
+        return questionDetailPane;
     }
 
     public CategoryDetailPane popupCategoryDetailPane(){
-        return new CategoryDetailPane();
+        return categoryDetailPane;
     }
 
     public TestPane showtestPane(){
