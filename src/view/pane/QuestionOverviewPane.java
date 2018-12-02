@@ -31,7 +31,7 @@ public class QuestionOverviewPane extends GridPane {
 
         //ObservableList<Question> questions = FXCollections.observableArrayList(db.getAllQuestions());
         ObservableList<Question>questions = service.getQuestions();
-
+        System.out.println(questions);
         this.add(new Label("Questions:"), 0, 0, 1, 1);
 
         table = new TableView<>();

@@ -57,4 +57,9 @@ public class Question implements Serializable {
         return this.statments.get(0);
     }
 
+    @Override
+    public String toString() {
+        return this.question + " " + category;
+    }
+
 }

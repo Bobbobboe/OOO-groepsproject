@@ -25,8 +25,9 @@ public class Controller implements Subject {
     Scene scene;
     AssesMainPane assesMainPane;
     Group root = new Group();
-    CategoryDetailPane categoryDetailPane = new CategoryDetailPane();
-    QuestionDetailPane questionDetailPane = new QuestionDetailPane();
+    CategoryDetailPane categoryDetailPane;
+    QuestionDetailPane questionDetailPane;
+    Stage popup;
 
     public Controller() {
          db = new DatabaseText();
@@ -60,8 +61,8 @@ public class Controller implements Subject {
     }
 
     public ObservableList<Question> getQuestions(){
-//        db.add(new Question("Welk patroon definieert een familie van algoritmes, kapselt ze in en maakt ze uitwisselbaar ?", db.getCategory(0), "Positive"));
-//        db.add(new Question("Welk ontwerp patroon is het minst van toepassing op het strategy patroon ?", db.getCategory(1), "Negative"));
+//        addQuestion(new Question("Welk patroon definieert een familie van algoritmes, kapselt ze in en maakt ze uitwisselbaar ?", getCategories().get(0), "Positive"));
+//        addQuestion(new Question("Welk ontwerp patroon is het minst van toepassing op het strategy patroon ?", getCategories().get(0), "Negative"));
 
         return FXCollections.observableArrayList(db.getAllQuestions());
     }
@@ -75,11 +76,11 @@ public class Controller implements Subject {
         pane.setNewAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                final Stage popup = new Stage();
+                popup = new Stage();
                 popup.initModality(Modality.APPLICATION_MODAL);
                 popup.initOwner(primaryStage);
 
-                Scene popupScene = new Scene(questionDetailPane);
+                Scene popupScene = new Scene(popupQuestionDetailPane());
                 popup.setScene(popupScene);
                 popup.show();
             }
@@ -87,16 +88,18 @@ public class Controller implements Subject {
         return pane;
     }
 
+
+
     public CategoryOverviewPane showCategoryOverviewPane(){
         CategoryOverviewPane pane =  new CategoryOverviewPane();
         pane.setNewAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                final Stage popup = new Stage();
+                popup = new Stage();
                 popup.initModality(Modality.APPLICATION_MODAL);
                 popup.initOwner(primaryStage);
 
-                Scene dialogScene = new Scene(categoryDetailPane);
+                Scene dialogScene = new Scene(popupCategoryDetailPane());
                 popup.setScene(dialogScene);
                 popup.show();
             }
@@ -105,10 +108,25 @@ public class Controller implements Subject {
     }
 
     public QuestionDetailPane popupQuestionDetailPane(){
+        this.questionDetailPane = new QuestionDetailPane();
+
+        questionDetailPane.setCancelAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                popup.close();
+            }
+        });
         return questionDetailPane;
     }
 
     public CategoryDetailPane popupCategoryDetailPane(){
+        this.categoryDetailPane = new CategoryDetailPane();
+        categoryDetailPane.setCancelAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                popup.close();
+            }
+        });
         return categoryDetailPane;
     }
 
