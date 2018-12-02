@@ -4,7 +4,7 @@ import view.Observer;
 
 import java.io.Serializable;
 
-public class SubCategory extends MainCategory {
+public class SubCategory extends Category {
     private static final long serialversionUID = 129348939L;
 
     private Category category;
