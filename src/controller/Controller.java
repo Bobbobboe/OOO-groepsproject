@@ -116,6 +116,14 @@ public class Controller implements Subject {
                 popup.close();
             }
         });
+
+        questionDetailPane.setSaveAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                addQuestion(new Question(questionDetailPane.getQuestionField().getText(), (Category) questionDetailPane.getCategoryField().getValue(), questionDetailPane.getFeedbackField().getText()));
+                popup.close();
+            }
+        });
         return questionDetailPane;
     }
 
@@ -124,6 +132,14 @@ public class Controller implements Subject {
         categoryDetailPane.setCancelAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                popup.close();
+            }
+        });
+
+        categoryDetailPane.setSaveAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                enrollCategory(categoryDetailPane.getTitleField().getText(), categoryDetailPane.getDescriptionField().getText(), (Category) categoryDetailPane.getCategoryField().getValue());
                 popup.close();
             }
         });

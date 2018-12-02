@@ -73,6 +73,27 @@ public class QuestionDetailPane extends GridPane {
 		add(btnOK, 1, 11, 2, 1);
 		
 	}
+
+	public TextArea getStatementsArea() {
+		return statementsArea;
+	}
+
+	public TextField getQuestionField() {
+		return questionField;
+	}
+
+	public TextField getStatementField() {
+		return statementField;
+	}
+
+	public TextField getFeedbackField() {
+		return feedbackField;
+	}
+
+	public ComboBox getCategoryField() {
+		return categoryField;
+	}
+
 	public void setSaveAction(EventHandler<ActionEvent> saveAction) {
 		btnOK.setOnAction(saveAction);
 	}

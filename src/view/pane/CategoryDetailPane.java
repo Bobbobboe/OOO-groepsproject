@@ -44,6 +44,18 @@ public class CategoryDetailPane extends GridPane {
 		this.add(btnOK, 1, 3, 1, 1);
 	}
 
+	public TextField getTitleField() {
+		return titleField;
+	}
+
+	public TextField getDescriptionField() {
+		return descriptionField;
+	}
+
+	public ComboBox getCategoryField() {
+		return categoryField;
+	}
+
 	public void setSaveAction(EventHandler<ActionEvent> saveAction) {
 		btnOK.setOnAction(saveAction);
 	}
