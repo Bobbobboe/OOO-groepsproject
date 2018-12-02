@@ -1,6 +1,8 @@
 package view.pane;
 
 import controller.Controller;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -12,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import model.Category;
 
 public class QuestionDetailPane extends GridPane {
 	private Button btnOK, btnCancel;
@@ -20,7 +23,7 @@ public class QuestionDetailPane extends GridPane {
 	private Button btnAdd, btnRemove;
 	private ComboBox categoryField;
 
-	public QuestionDetailPane() {
+	public QuestionDetailPane(ObservableList<Category> categories) {
 		this.setPrefHeight(300);
 		this.setPrefWidth(320);
 		
@@ -53,7 +56,7 @@ public class QuestionDetailPane extends GridPane {
 		add(addRemove, 1, 8, 2, 1);
 
 		add(new Label("Category: "), 0, 9, 1, 1);
-		categoryField = new ComboBox();
+		categoryField = new ComboBox(categories);
 		add(categoryField, 1, 9, 2, 1);
 
 		add(new Label("Feedback: "), 0, 10, 1, 1);
@@ -70,7 +73,6 @@ public class QuestionDetailPane extends GridPane {
 		add(btnOK, 1, 11, 2, 1);
 		
 	}
-
 	public void setSaveAction(EventHandler<ActionEvent> saveAction) {
 		btnOK.setOnAction(saveAction);
 	}

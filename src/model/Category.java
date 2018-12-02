@@ -32,7 +32,7 @@ public abstract class Category implements Serializable, Subject {
 
     @Override
     public String toString() {
-        return this.name;
+        return name;
     }
 
     @Override

@@ -8,8 +8,7 @@ import java.io.Serializable;
 
 public class MainCategory extends Category {
     private static final long serialversionUID = 129348938L;
-    private String name;
-    private String description;
+
 
     public MainCategory(String name, String description) {
         super(name, description);
@@ -18,7 +17,7 @@ public class MainCategory extends Category {
 
     @Override
     public String toString() {
-        return this.name;
+        return super.toString();
     }
 
     @Override

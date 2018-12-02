@@ -1,5 +1,6 @@
 package view.pane;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -8,13 +9,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import model.Category;
 
 public class CategoryDetailPane extends GridPane {
 	private Button btnOK, btnCancel;
 	private TextField titleField, descriptionField;
 	private ComboBox categoryField;
 
-	public CategoryDetailPane() {
+	public CategoryDetailPane(ObservableList<Category> categories) {
 		this.setPrefHeight(150);
 		this.setPrefWidth(300);
 		
@@ -31,7 +33,7 @@ public class CategoryDetailPane extends GridPane {
 		this.add(descriptionField, 1, 1, 1, 1);
 
 		this.add(new Label("Main Category:"), 0, 2, 1, 1);
-		categoryField = new ComboBox<>();
+		categoryField = new ComboBox<>(categories);
 		this.add(categoryField, 1, 2, 1, 1);
 
 		btnCancel = new Button("Cancel");

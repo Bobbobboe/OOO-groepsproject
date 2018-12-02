@@ -42,27 +42,27 @@ public class Controller implements Subject {
     public void addCategory(Category category) throws DomainExeption {
         if(category == null) throw new DomainExeption();
         db.add(category);
-        notifyObserver();
+//        notifyObserver();
     }
 
     public void addQuestion(Question question) {
         if(question == null) throw new DomainExeption();
         db.add(question);
-        notifyObserver();
+//        notifyObserver();
     }
 
     public ObservableList<Category> getCategories(){
-//        db.add(new MainCategory("Design Principles", "The SOLID design principles"));
-//        db.add(new MainCategory("Design pattersn", "Design patterns learned this year"));
-//        db.add(new MainCategory("Java", "Java extra's"));
-//        db.add(new MainCategory("UML", "Technique for drawing class diagrams"));
+//        addCategory(new MainCategory("Design Principles", "The SOLID design principles"));
+//        addCategory(new MainCategory("Design patterns", "Design patterns learned this year"));
+//        addCategory(new MainCategory("Java", "Java extra's"));
+//        addCategory(new MainCategory("UML", "Technique for drawing class diagrams"));
 
         return FXCollections.observableArrayList(db.getAllCategories());
     }
 
     public ObservableList<Question> getQuestions(){
-//        addQuestion(new Question("Welk patroon definieert een familie van algoritmes, kapselt ze in en maakt ze uitwisselbaar ?", getCategories().get(0), "Positive"));
-//        addQuestion(new Question("Welk ontwerp patroon is het minst van toepassing op het strategy patroon ?", getCategories().get(0), "Negative"));
+//        addQuestion(new Question("Welk patroon definieert een familie van algoritmes, kapselt ze in en maakt ze uitwisselbaar ?", db.getCategory(0), "Positive"));
+//        addQuestion(new Question("Welk ontwerp patroon is het minst van toepassing op het strategy patroon ?", db.getCategory(1), "Negative"));
 
         return FXCollections.observableArrayList(db.getAllQuestions());
     }
@@ -108,7 +108,7 @@ public class Controller implements Subject {
     }
 
     public QuestionDetailPane popupQuestionDetailPane(){
-        this.questionDetailPane = new QuestionDetailPane();
+        this.questionDetailPane = new QuestionDetailPane(FXCollections.observableArrayList(db.getAllCategories()));
 
         questionDetailPane.setCancelAction(new EventHandler<ActionEvent>() {
             @Override
@@ -120,7 +120,7 @@ public class Controller implements Subject {
     }
 
     public CategoryDetailPane popupCategoryDetailPane(){
-        this.categoryDetailPane = new CategoryDetailPane();
+        this.categoryDetailPane = new CategoryDetailPane(FXCollections.observableArrayList(db.getAllCategories()));
         categoryDetailPane.setCancelAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
