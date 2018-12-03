@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -30,8 +31,10 @@ public class TestPane extends GridPane {
 		statementGroup = new ToggleGroup();
 
 		submitButton = new Button("Submit");
+		add(submitButton,0, 58, 1, 1);
+		
 	}
-	
+
 	public void setProcessAnswerAction(EventHandler<ActionEvent> processAnswerAction) {
 		submitButton.setOnAction(processAnswerAction);
 	}

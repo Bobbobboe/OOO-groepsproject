@@ -29,7 +29,8 @@ public class Controller implements Subject {
     AssesMainPane assesMainPane;
     CategoryDetailPane categoryDetailPane;
     QuestionDetailPane questionDetailPane;
-    Stage popup;
+    TestPane testPane;
+    Stage popup = new Stage();
     Group root = new Group();
 
     ObservableList<Category> categories;
@@ -163,8 +164,16 @@ public class Controller implements Subject {
         return categoryDetailPane;
     }
 
-    public TestPane showtestPane(){
-        return new TestPane();
+    public TestPane showTestPane(){
+        this.testPane = new TestPane();
+        popup = new Stage();
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.initOwner(primaryStage);
+
+        Scene dialogScene = new Scene(testPane);
+        popup.setScene(dialogScene);
+        popup.show();
+        return testPane;
     }
 
     public MessagePane showMessagePane(){
