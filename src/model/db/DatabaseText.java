@@ -87,7 +87,7 @@ public class DatabaseText implements Database, Serializable {
             in.close();
             fileIn.close();
             } catch (Exception b) {
-                b.printStackTrace();
+
             }
 
 
@@ -114,7 +114,7 @@ public class DatabaseText implements Database, Serializable {
             in.close();
             fileIn.close();
         } catch (Exception b) {
-            b.printStackTrace();
+            
         }
 
 
