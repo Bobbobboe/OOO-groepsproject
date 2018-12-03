@@ -18,6 +18,7 @@ import view.pane.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Controller implements Subject {
     private List<Observer> observers = new ArrayList<Observer>();
@@ -165,7 +166,8 @@ public class Controller implements Subject {
     }
 
     public TestPane showTestPane(){
-        this.testPane = new TestPane();
+        int random = new Random().nextInt(questions.size());
+        this.testPane = new TestPane(questions.get(random));
         popup = new Stage();
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.initOwner(primaryStage);

@@ -11,13 +11,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
+import model.Question;
 
 public class TestPane extends GridPane {
 	private Label questionField;
 	private Button submitButton;
 	private ToggleGroup statementGroup;
 	
-	public TestPane (){
+	public TestPane (Question question){
 		this.setPrefHeight(300);
 		this.setPrefWidth(750);
 		
@@ -29,10 +30,11 @@ public class TestPane extends GridPane {
 		add(questionField, 0, 0, 1, 1);
 		
 		statementGroup = new ToggleGroup();
+		statementGroup.setUserData(question.toString());
 
 		submitButton = new Button("Submit");
 		add(submitButton,0, 58, 1, 1);
-		
+
 	}
 
 	public void setProcessAnswerAction(EventHandler<ActionEvent> processAnswerAction) {
