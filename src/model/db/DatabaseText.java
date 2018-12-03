@@ -5,6 +5,7 @@ import model.Question;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
 public class DatabaseText implements Database, Serializable {
 
@@ -44,8 +45,15 @@ public class DatabaseText implements Database, Serializable {
 
     @Override
     public void deleteCategory(int id) {
+        Category category = categories.get(id);
         categories.remove(id);
         updateCategories();
+        for (Question question : questions){
+            if (category.equals(question.getCategory())){
+                questions.remove(question);
+            }
+        }
+        updateQuestions();
     }
 
     @Override
