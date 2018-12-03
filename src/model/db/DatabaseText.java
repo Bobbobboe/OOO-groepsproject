@@ -11,8 +11,8 @@ public class DatabaseText implements Database, Serializable {
     private List<Category> categories = new ArrayList<>();
     private List<Question> questions = new ArrayList<>();
 
-    public static String CATEGORY_TXT = "src/model/db/Category.txt";
-    public static String QUESTION_TXT = "src/model/db/Question.txt";
+    public static final String CATEGORY_TXT = "src/model/db/Category.txt";
+    public static final String QUESTION_TXT = "src/model/db/Question.txt";
 
     public DatabaseText() {
         fillListCategories();
