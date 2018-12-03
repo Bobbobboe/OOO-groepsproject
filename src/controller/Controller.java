@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,17 +22,30 @@ import java.util.List;
 public class Controller implements Subject {
     private List<Observer> observers = new ArrayList<Observer>();
     private Database db;
+
     Stage primaryStage;
     Stage categoryStage;
     Scene scene;
     AssesMainPane assesMainPane;
-    Group root = new Group();
     CategoryDetailPane categoryDetailPane;
     QuestionDetailPane questionDetailPane;
     Stage popup;
+    Group root = new Group();
+
+    ObservableList<Category> categories;
+    ObservableList<Question> questions;
 
     public Controller() {
          db = new DatabaseText();
+         categories = FXCollections.observableArrayList(db.getAllCategories());
+         questions = FXCollections.observableArrayList(db.getAllQuestions());
+
+         categories.addListener(new ListChangeListener<Category>() {
+             @Override
+             public void onChanged(Change<? extends Category> c) {
+                 notifyObserver();
+             }
+         });
     }
 
     public void enrollCategory(String name, String description, Category category) throws DomainExeption {
@@ -42,13 +56,13 @@ public class Controller implements Subject {
 
     public void addCategory(Category category) throws DomainExeption {
         if(category == null) throw new DomainExeption();
-        db.add(category);
+        categories.add(category);
         notifyObserver();
     }
 
     public void addQuestion(Question question) {
         if(question == null) throw new DomainExeption();
-        db.add(question);
+        questions.add(question);
         notifyObserver();
     }
 
@@ -58,14 +72,14 @@ public class Controller implements Subject {
 //        addCategory(new MainCategory("Java", "Java extra's"));
 //        addCategory(new MainCategory("UML", "Technique for drawing class diagrams"));
 
-        return FXCollections.observableArrayList(db.getAllCategories());
+        return categories;
     }
 
     public ObservableList<Question> getQuestions(){
 //        addQuestion(new Question("Welk patroon definieert een familie van algoritmes, kapselt ze in en maakt ze uitwisselbaar ?", db.getCategory(0), "Positive"));
 //        addQuestion(new Question("Welk ontwerp patroon is het minst van toepassing op het strategy patroon ?", db.getCategory(1), "Negative"));
 
-        return FXCollections.observableArrayList(db.getAllQuestions());
+        return questions;
     }
 
     /**
@@ -109,7 +123,7 @@ public class Controller implements Subject {
     }
 
     public QuestionDetailPane popupQuestionDetailPane(){
-        this.questionDetailPane = new QuestionDetailPane(FXCollections.observableArrayList(db.getAllCategories()));
+        this.questionDetailPane = new QuestionDetailPane(categories);
 
         questionDetailPane.setCancelAction(new EventHandler<ActionEvent>() {
             @Override
@@ -129,7 +143,7 @@ public class Controller implements Subject {
     }
 
     public CategoryDetailPane popupCategoryDetailPane(){
-        this.categoryDetailPane = new CategoryDetailPane(FXCollections.observableArrayList(db.getAllCategories()));
+        this.categoryDetailPane = new CategoryDetailPane(categories);
         categoryDetailPane.setCancelAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
