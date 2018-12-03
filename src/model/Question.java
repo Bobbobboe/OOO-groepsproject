@@ -24,7 +24,7 @@ public class Question implements Serializable {
     }
 
     public void setQuestion(String question) {
-        if(question.trim().isEmpty() || question == null) throw new DomainExeption();
+        if(question == null || question.trim().isEmpty()) throw new DomainExeption();
         this.question = question;
     }
 
@@ -49,7 +49,7 @@ public class Question implements Serializable {
     }
 
     public void setFeedback(String feedback) {
-        if(feedback.trim().isEmpty() || feedback == null) throw new DomainExeption();
+        if(feedback == null || feedback.trim().isEmpty()) throw new DomainExeption();
         this.feedback = feedback;
     }
 

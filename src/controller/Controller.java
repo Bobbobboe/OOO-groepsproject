@@ -15,10 +15,11 @@ import model.db.DatabaseText;
 import view.Observer;
 import view.pane.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Controller implements Subject {
-    private List<Observer> observers;
+    private List<Observer> observers = new ArrayList<Observer>();
     private Database db;
     Stage primaryStage;
     Stage categoryStage;
@@ -42,13 +43,13 @@ public class Controller implements Subject {
     public void addCategory(Category category) throws DomainExeption {
         if(category == null) throw new DomainExeption();
         db.add(category);
-//        notifyObserver();
+        notifyObserver();
     }
 
     public void addQuestion(Question question) {
         if(question == null) throw new DomainExeption();
         db.add(question);
-//        notifyObserver();
+        notifyObserver();
     }
 
     public ObservableList<Category> getCategories(){
