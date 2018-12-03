@@ -7,7 +7,7 @@ import view.Observer;
 import java.io.Serializable;
 
 public class MainCategory extends Category {
-    private static final long serialversionUID = 129348938L;
+    public static final long serialversionUID = 2L;
 
 
     public MainCategory(String name, String description) {
