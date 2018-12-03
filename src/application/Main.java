@@ -36,7 +36,7 @@ public class Main extends Application {
             CategoryOverviewPane categoryOverviewPanel = service.showCategoryOverviewPane();//new CategoryOverviewPane();
             CategoryDetailPane categoryDetailPanel = service.popupCategoryDetailPane();//new CategoryDetailPane();
 
-            TestPane testPane = service.showtestPane();//new TestPane();
+            TestPane testPane = service.showTestPane();//new TestPane();
             MessagePane messagePane = service.showMessagePane();new MessagePane();
 
             Group root = service.getGroup(); //new Group();

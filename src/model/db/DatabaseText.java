@@ -20,8 +20,8 @@ public class DatabaseText implements Database, Serializable {
     }
 
     @Override
-    public void add(Category catergory) {
-        categories.add(catergory);
+    public void add(Category category) {
+        categories.add(category);
         updateCategories();
     }
 
@@ -85,7 +85,7 @@ public class DatabaseText implements Database, Serializable {
 
             in.close();
             fileIn.close();
-            } catch (Exception b) {
+            } catch (Exception ignored) {
 
             }
 
@@ -112,7 +112,7 @@ public class DatabaseText implements Database, Serializable {
 
             in.close();
             fileIn.close();
-        } catch (Exception b) {
+        } catch (Exception ignored) {
 
         }
 

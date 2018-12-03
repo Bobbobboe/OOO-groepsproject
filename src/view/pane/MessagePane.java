@@ -1,5 +1,6 @@
 package view.pane;
 
+import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -17,6 +18,7 @@ public class MessagePane extends GridPane {
 	private Button testButton;
 	
 	public MessagePane (){
+		Controller controller = new Controller();
 	    setBorder(new Border(new BorderStroke(Color.BLACK, 
 	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
@@ -29,6 +31,7 @@ public class MessagePane extends GridPane {
 			
 			@Override
 			public void handle(ActionEvent event) {
+				controller.showTestPane();
 			}
 		});
 		add(testButton, 0,1,1,1);
