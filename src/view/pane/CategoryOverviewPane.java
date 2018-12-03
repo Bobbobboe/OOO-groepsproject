@@ -15,16 +15,22 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import model.Category;
 import model.MainCategory;
+import model.Question;
 import model.db.Database;
 import model.db.DatabaseText;
+import view.Observer;
 
 
-public class CategoryOverviewPane extends GridPane {
+public class CategoryOverviewPane extends GridPane implements Observer {
     private TableView table;
     private Button btnNew;
-    private Controller service = new Controller();
+    private Controller service;
+    ObservableList<Category> categories;
 
-    public CategoryOverviewPane() {
+
+    public CategoryOverviewPane(Controller controller) {
+        service = controller;
+
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
@@ -33,7 +39,7 @@ public class CategoryOverviewPane extends GridPane {
         table = new TableView<>();
         table.setPrefWidth(REMAINING);
         //ObservableList<Category> categories = FXCollections.observableArrayList(db.getAllCategories());
-        ObservableList<Category> categories = service.getCategories();
+        categories = service.getCategories();
         table.setItems(categories);
         TableColumn nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory("name"));
@@ -55,4 +61,8 @@ public class CategoryOverviewPane extends GridPane {
         table.setOnMouseClicked(editAction);
     }
 
+    @Override
+    public void update(ObservableList<Category> categories, ObservableList<Question> questions) {
+        this.categories = categories;
+    }
 }

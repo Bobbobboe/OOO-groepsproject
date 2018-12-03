@@ -57,12 +57,14 @@ public class Controller implements Subject {
     public void addCategory(Category category) throws DomainExeption {
         if(category == null) throw new DomainExeption();
         categories.add(category);
+        db.add(category);
         notifyObserver();
     }
 
     public void addQuestion(Question question) {
         if(question == null) throw new DomainExeption();
         questions.add(question);
+        db.add(question);
         notifyObserver();
     }
 
@@ -87,7 +89,7 @@ public class Controller implements Subject {
      * All the panes
      */
     public QuestionOverviewPane showQuestionOverviewPane(){
-        QuestionOverviewPane pane = new QuestionOverviewPane();
+        QuestionOverviewPane pane = new QuestionOverviewPane(this);
         pane.setNewAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -106,7 +108,7 @@ public class Controller implements Subject {
 
 
     public CategoryOverviewPane showCategoryOverviewPane(){
-        CategoryOverviewPane pane =  new CategoryOverviewPane();
+        CategoryOverviewPane pane =  new CategoryOverviewPane(this);
         pane.setNewAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -221,7 +223,7 @@ public class Controller implements Subject {
     @Override
     public void notifyObserver() {
         for(Observer o: observers){
-            o.notify();
+            o.update(categories, questions);
         }
     }
 }

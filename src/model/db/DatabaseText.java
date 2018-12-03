@@ -127,7 +127,7 @@ public class DatabaseText implements Database, Serializable {
     }
 
     @SuppressWarnings("Duplicates")
-    private void updateCategories() {
+    public void updateCategories() {
         try {
             FileOutputStream fileOut = new FileOutputStream(CATEGORY_TXT);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -141,7 +141,7 @@ public class DatabaseText implements Database, Serializable {
     }
 
     @SuppressWarnings("Duplicates")
-    private void updateQuestions() {
+    public void updateQuestions() {
         try {
             FileOutputStream fileOut = new FileOutputStream(QUESTION_TXT);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);

@@ -17,20 +17,24 @@ import model.Category;
 import model.Question;
 import model.db.Database;
 import model.db.DatabaseText;
+import view.Observer;
 
-public class QuestionOverviewPane extends GridPane {
+public class QuestionOverviewPane extends GridPane implements Observer {
     private TableView table;
     private Button btnNew;
+    private Controller service;
+    ObservableList<Question>questions;
 
-    public QuestionOverviewPane() {
-        Controller service = new Controller();
+    public QuestionOverviewPane(Controller controller) {
+        service = controller;
+        service.addObserver(this);
 
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
 
         //ObservableList<Question> questions = FXCollections.observableArrayList(db.getAllQuestions());
-        ObservableList<Question>questions = service.getQuestions();
+        questions = service.getQuestions();
         this.add(new Label("Questions:"), 0, 0, 1, 1);
 
         table = new TableView<>();
@@ -56,4 +60,8 @@ public class QuestionOverviewPane extends GridPane {
         table.setOnMouseClicked(editAction);
     }
 
+    @Override
+    public void update(ObservableList<Category> categories, ObservableList<Question> questions) {
+        this.questions = questions;
+    }
 }

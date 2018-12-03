@@ -21,4 +21,7 @@ public interface Database {
 
     void fillListCategories();
     void fillListQuestions();
+
+    void updateCategories();
+    void updateQuestions();
 }
