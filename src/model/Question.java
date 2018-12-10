@@ -59,7 +59,7 @@ public class Question implements Serializable {
 
     @Override
     public String toString() {
-        return this.question + " " + category;
+        return this.question;
     }
 
 }
