@@ -29,8 +29,9 @@ public class TestPane extends GridPane {
 		questionField = new Label();
 		add(questionField, 0, 0, 1, 1);
 		
-		statementGroup = new ToggleGroup();
-		statementGroup.setUserData(question.toString());
+//		statementGroup = new ToggleGroup();
+//		statementGroup.setUserData(question.toString());
+		this.add(new Label(question.toString()),0, 5, 1,1);
 
 		submitButton = new Button("Submit");
 		add(submitButton,0, 58, 1, 1);
