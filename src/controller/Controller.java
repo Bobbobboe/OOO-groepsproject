@@ -169,6 +169,7 @@ public class Controller implements Subject {
 
     public TestPane showTestPane(){
         int random = new Random().nextInt(questions.size());
+        System.out.println(random);
         this.testPane = new TestPane(questions.get(random));
         popup = new Stage();
         popup.initModality(Modality.APPLICATION_MODAL);

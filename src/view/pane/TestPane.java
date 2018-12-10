@@ -9,6 +9,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import model.Question;
@@ -31,7 +32,13 @@ public class TestPane extends GridPane {
 		
 //		statementGroup = new ToggleGroup();
 //		statementGroup.setUserData(question.toString());
-		this.add(new Label(question.toString()),0, 5, 1,1);
+		this.add(new Label(question.toString()),0, 3, 1,1);
+
+		int rowIndex = 5;
+		for (String statement : question.getStatments()){
+			this.add(new RadioButton(statement), 0, rowIndex, 1, 1);
+			rowIndex ++;
+		}
 
 		submitButton = new Button("Submit");
 		add(submitButton,0, 58, 1, 1);
