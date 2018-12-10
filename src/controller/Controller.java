@@ -48,6 +48,13 @@ public class Controller implements Subject {
                  notifyObserver();
              }
          });
+
+         questions.addListener(new ListChangeListener<Question>() {
+             @Override
+             public void onChanged(Change<? extends Question> c) {
+                 notifyObserver();
+             }
+         });
     }
 
     public void enrollCategory(String name, String description, Category category) throws DomainExeption {

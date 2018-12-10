@@ -29,8 +29,6 @@ public class QuestionDetailPane extends GridPane {
 
 	public QuestionDetailPane(ObservableList<Category> categories) {
 		this.statements = new ArrayList<>();
-		this.observableStatements = FXCollections.observableArrayList(statements);
-
 		this.setPrefHeight(300);
 		this.setPrefWidth(320);
 		
