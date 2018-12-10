@@ -2,7 +2,10 @@ package view.pane;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import controller.Controller;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -12,14 +15,22 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
+import model.Category;
 import model.Question;
+import view.Observer;
 
-public class TestPane extends GridPane {
+public class TestPane extends GridPane implements Observer {
 	private Label questionField;
 	private Button submitButton;
 	private ToggleGroup statementGroup;
+	private List<Question> questions;
+	private List<Question>quest;
+	private Controller service;
 	
-	public TestPane (Question question){
+	public TestPane (List<Question> questions, Controller controller){
+		service = controller;
+		service.addObserver(this);
+		this.questions = questions;
 		this.setPrefHeight(300);
 		this.setPrefWidth(750);
 		
@@ -32,13 +43,16 @@ public class TestPane extends GridPane {
 		
 //		statementGroup = new ToggleGroup();
 //		statementGroup.setUserData(question.toString());
-		this.add(new Label(question.toString()),0, 3, 1,1);
+		int random = new Random().nextInt(questions.size());
+		quest = questions;
+		this.add(new Label(quest.get(random).toString()),0, 3, 1,1);
 
 		int rowIndex = 5;
-		for (String statement : question.getStatments()){
+		for (String statement : quest.get(random).getStatments()){
 			this.add(new RadioButton(statement), 0, rowIndex, 1, 1);
 			rowIndex ++;
 		}
+		quest.remove(random);
 
 		submitButton = new Button("Submit");
 		add(submitButton,0, 58, 1, 1);
@@ -55,5 +69,11 @@ public class TestPane extends GridPane {
 			selected.add(statementGroup.getSelectedToggle().getUserData().toString());
 		}
 		return selected;
+	}
+
+	@Override
+	public void update(ObservableList<Category> categories, ObservableList<Question> questions) {
+		this.questions = questions;
+		this.quest = questions;
 	}
 }
