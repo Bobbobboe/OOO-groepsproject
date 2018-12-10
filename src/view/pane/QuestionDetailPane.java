@@ -16,14 +16,21 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import model.Category;
 
+import java.util.ArrayList;
+
 public class QuestionDetailPane extends GridPane {
 	private Button btnOK, btnCancel;
 	private TextArea statementsArea;
 	private TextField questionField, statementField, feedbackField;
 	private Button btnAdd, btnRemove;
 	private ComboBox categoryField;
+	private ArrayList<String> statements;
+	private ObservableList<String> observableStatements;
 
 	public QuestionDetailPane(ObservableList<Category> categories) {
+		this.statements = new ArrayList<>();
+		this.observableStatements = FXCollections.observableArrayList(statements);
+
 		this.setPrefHeight(300);
 		this.setPrefWidth(320);
 		
@@ -41,6 +48,9 @@ public class QuestionDetailPane extends GridPane {
 
 		add(new Label("Statements: "), 0, 2, 1, 1);
 		statementsArea = new TextArea();
+
+		addStatementsToTextArea();
+
 		statementsArea.setPrefRowCount(5);
 		statementsArea.setEditable(false);
 		add(statementsArea, 1, 2, 2, 5);
@@ -74,6 +84,12 @@ public class QuestionDetailPane extends GridPane {
 		
 	}
 
+	public void addStatementsToTextArea() {
+		for(String s : statements) {
+			this.statementsArea.appendText(s + "\n");
+		}
+	}
+
 	public TextArea getStatementsArea() {
 		return statementsArea;
 	}
@@ -94,6 +110,10 @@ public class QuestionDetailPane extends GridPane {
 		return categoryField;
 	}
 
+	public ArrayList<String> getStatements() {
+		return statements;
+	}
+
 	public void setSaveAction(EventHandler<ActionEvent> saveAction) {
 		btnOK.setOnAction(saveAction);
 	}
@@ -105,6 +125,9 @@ public class QuestionDetailPane extends GridPane {
 	class AddStatementListener implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent e) {
+			statements.add(getStatementField().getText());
+			statementField.clear();
+			addStatementsToTextArea();
 		}
 	}
 

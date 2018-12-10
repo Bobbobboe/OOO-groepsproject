@@ -139,7 +139,9 @@ public class Controller implements Subject {
         questionDetailPane.setSaveAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addQuestion(new Question(questionDetailPane.getQuestionField().getText(), (Category) questionDetailPane.getCategoryField().getValue(), questionDetailPane.getFeedbackField().getText()));
+                Question q = new Question(questionDetailPane.getQuestionField().getText(), (Category) questionDetailPane.getCategoryField().getValue(), questionDetailPane.getFeedbackField().getText());
+                q.addStatements(questionDetailPane.getStatements());
+                addQuestion(q);
                 popup.close();
             }
         });
