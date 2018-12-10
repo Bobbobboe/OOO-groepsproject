@@ -55,6 +55,10 @@ public class Question implements Serializable {
         this.feedback = feedback;
     }
 
+    public List<String> getStatements(){
+        return this.statments;
+    }
+
     public String getSolution() {
         return this.statments.get(0);
     }
