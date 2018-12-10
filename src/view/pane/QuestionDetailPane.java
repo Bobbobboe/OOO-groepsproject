@@ -139,7 +139,7 @@ public class QuestionDetailPane extends GridPane {
 		@Override
 		public void handle(ActionEvent e) {
 			statements.clear();
-			addStatementsToTextArea();
+			statementsArea.setText("");
 		}
 	}
 }
