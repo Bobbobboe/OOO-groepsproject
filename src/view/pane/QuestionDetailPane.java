@@ -86,8 +86,12 @@ public class QuestionDetailPane extends GridPane {
 
 	public void addStatementsToTextArea() {
 		for(String s : statements) {
-			this.statementsArea.appendText(s + "\n");
+			this.statementsArea.setText(s + "\n");
 		}
+	}
+
+	public void addStatementToTextArea(String statement) {
+		this.statementsArea.appendText(statement + "\n");
 	}
 
 	public TextArea getStatementsArea() {
@@ -126,14 +130,16 @@ public class QuestionDetailPane extends GridPane {
 		@Override
 		public void handle(ActionEvent e) {
 			statements.add(getStatementField().getText());
+			addStatementToTextArea(statementField.getText());
 			statementField.clear();
-			addStatementsToTextArea();
 		}
 	}
 
 	class RemoveStatementListener implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent e) {
+			statements.clear();
+			addStatementsToTextArea();
 		}
 	}
 }
