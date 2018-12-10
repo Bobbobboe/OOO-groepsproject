@@ -31,6 +31,8 @@ public class TestPane extends GridPane implements Observer {
 		service = controller;
 		service.addObserver(this);
 		this.questions = questions;
+		this.quest = questions;
+
 		this.setPrefHeight(300);
 		this.setPrefWidth(750);
 		
@@ -43,8 +45,7 @@ public class TestPane extends GridPane implements Observer {
 		
 //		statementGroup = new ToggleGroup();
 //		statementGroup.setUserData(question.toString());
-		int random = new Random().nextInt(questions.size());
-		quest = questions;
+		int random = new Random().nextInt(quest.size());
 		this.add(new Label(quest.get(random).toString()),0, 3, 1,1);
 
 		int rowIndex = 5;

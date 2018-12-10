@@ -175,7 +175,7 @@ public class Controller implements Subject {
     }
 
     public TestPane showTestPane(){
-        this.testPane = new TestPane(questions, this);
+        this.testPane = new TestPane(db.getAllQuestions(), this);
         popup = new Stage();
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.initOwner(primaryStage);
