@@ -45,15 +45,20 @@ public class TestPane extends GridPane implements Observer {
 		
 //		statementGroup = new ToggleGroup();
 //		statementGroup.setUserData(question.toString());
-		int random = new Random().nextInt(quest.size());
-		this.add(new Label(quest.get(random).toString()),0, 3, 1,1);
+		try {
+			int random = new Random().nextInt(quest.size());
+			this.add(new Label(quest.get(random).toString()),0, 1, 1,1);
 
-		int rowIndex = 5;
-		for (String statement : quest.get(random).getStatments()){
-			this.add(new RadioButton(statement), 0, rowIndex, 1, 1);
-			rowIndex ++;
+			int rowIndex = 3;
+			for (String statement : quest.get(random).getStatments()){
+				this.add(new RadioButton(statement), 0, rowIndex, 1, 1);
+				rowIndex ++;
+			}
+			quest.remove(random);
+		}catch (IllegalArgumentException e){
+			System.out.println(e.getMessage());
+			//TODO fix score when everything is answererd
 		}
-		quest.remove(random);
 
 		submitButton = new Button("Submit");
 		add(submitButton,0, 58, 1, 1);
