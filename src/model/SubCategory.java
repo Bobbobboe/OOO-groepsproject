@@ -8,10 +8,14 @@ public class SubCategory extends Category {
     public static final long serialversionUID = 3L;
 
     private Category category;
+    private String name;
+    private String description;
 
     public SubCategory(String name, String description, Category category) {
         super(name, description);
         setCategory(category);
+        this.name = name;
+        this.description = description;
     }
 
     public Category getCategory() {
@@ -24,7 +28,7 @@ public class SubCategory extends Category {
 
     @Override
     public String toString() {
-        return this.category.toString();
+        return this.name;
     }
 
     @Override

@@ -25,7 +25,6 @@ public class QuestionDetailPane extends GridPane {
 	private Button btnAdd, btnRemove;
 	private ComboBox categoryField;
 	private ArrayList<String> statements;
-	private ObservableList<String> observableStatements;
 
 	public QuestionDetailPane(ObservableList<Category> categories) {
 		this.statements = new ArrayList<>();
