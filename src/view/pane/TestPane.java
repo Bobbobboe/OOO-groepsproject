@@ -1,6 +1,7 @@
 package view.pane;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -50,7 +51,13 @@ public class TestPane extends GridPane implements Observer {
 			this.add(new Label(quest.get(random).toString()),0, 1, 1,1);
 
 			int rowIndex = 3;
-			for (String statement : quest.get(random).getStatments()){
+			List<String> statemtents = quest.get(random).getStatments();
+			List<String> shuffeled = new ArrayList<>();
+			shuffeled.addAll(statemtents);
+
+			Collections.shuffle(shuffeled);
+
+			for (String statement : shuffeled){
 				this.add(new RadioButton(statement), 0, rowIndex, 1, 1);
 				rowIndex ++;
 			}
