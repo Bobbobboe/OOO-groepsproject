@@ -183,6 +183,7 @@ public class Controller implements Subject {
                 List<String> awnsered_by_user = testPane.getSelectedStatements();
                 String correct = testPane.getCurrent().getSolution();
                 //TODO
+                popup.close();
             }
         });
 
