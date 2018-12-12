@@ -176,6 +176,16 @@ public class Controller implements Subject {
 
     public TestPane showTestPane(){
         this.testPane = new TestPane(questions, this);
+
+        testPane.setProcessAnswerAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                List<String> awnsered_by_user = testPane.getSelectedStatements();
+                String correct = testPane.getCurrent().getSolution();
+                //TODO
+            }
+        });
+
         popup = new Stage();
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.initOwner(primaryStage);
