@@ -184,7 +184,9 @@ public class Controller implements Subject {
                 System.out.println(awnsered_by_user);
                 String correct = testPane.getCurrent().getSolution();
                 //TODO
+                System.out.println(correct);
                 popup.close();
+                showTestPane();
             }
         });
 
