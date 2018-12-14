@@ -45,8 +45,8 @@ public class TestPane extends GridPane implements Observer {
 		questionField = new Label();
 		add(questionField, 0, 0, 1, 1);
 		
-//		statementGroup = new ToggleGroup();
-//		statementGroup.setUserData(question.toString());
+		statementGroup = new ToggleGroup();
+		statementGroup.setUserData("statements");
 		try {
 			int random = new Random().nextInt(quest.size());
 
@@ -61,8 +61,10 @@ public class TestPane extends GridPane implements Observer {
 			Collections.shuffle(shuffeled);
 
 			for (String statement : shuffeled) {
-				this.add(new RadioButton(statement), 0, rowIndex, 1, 1);
-				rowIndex ++;
+				RadioButton rb = new RadioButton(statement);
+				rb.setToggleGroup(statementGroup);
+				this.add(rb, 0, rowIndex, 1, 1);
+				rowIndex++;
 			}
 			quest.remove(random);
 		} catch (IllegalArgumentException e){
@@ -85,8 +87,9 @@ public class TestPane extends GridPane implements Observer {
 
 	public List<String> getSelectedStatements() {
 		 List<String> selected = new ArrayList<String>();
-		if(statementGroup.getSelectedToggle()!=null){
-			selected.add(statementGroup.getSelectedToggle().getUserData().toString());
+		if(statementGroup.getSelectedToggle() != null){
+			String temp = statementGroup.getSelectedToggle().getUserData().toString();
+			selected.add(temp);
 		}
 		return selected;
 	}
