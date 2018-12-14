@@ -175,6 +175,7 @@ public class Controller implements Subject {
     }
 
     public TestPane showTestPane(){
+
         this.testPane = new TestPane(questions, this);
 
         testPane.setProcessAnswerAction(new EventHandler<ActionEvent>() {
@@ -183,10 +184,15 @@ public class Controller implements Subject {
                 String awnsered_by_user = testPane.getSelectedStatements();
                 System.out.println(awnsered_by_user);
                 String correct = testPane.getCurrent().getSolution();
-                //TODO
                 System.out.println(correct);
                 popup.close();
-                showTestPane();
+
+                if(testPane.getQuest().size() != 0) {
+                    showTestPane();
+                } else {
+
+                }
+
             }
         });
 

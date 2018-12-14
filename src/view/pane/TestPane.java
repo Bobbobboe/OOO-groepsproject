@@ -25,8 +25,10 @@ public class TestPane extends GridPane implements Observer {
 	private List<Question>quest;
 	private Controller service;
 	private Question current;
-	
-	public TestPane (List<Question> questions, Controller controller){
+	private int random;
+
+
+	public TestPane (List<Question> questions, Controller controller) {
 		service = controller;
 		service.addObserver(this);
 		this.questions = questions;
@@ -44,8 +46,9 @@ public class TestPane extends GridPane implements Observer {
 		
 		statementGroup = new ToggleGroup();
 		statementGroup.setUserData("statements");
+
 		try {
-			int random = new Random().nextInt(quest.size());
+			random = new Random().nextInt(quest.size());
 
 			this.current = quest.get(random);
 
@@ -57,6 +60,10 @@ public class TestPane extends GridPane implements Observer {
 
 			Collections.shuffle(shuffeled);
 
+			if(this.current.getStatements().size() == 0) {
+				throw new IllegalAccessException("No statements");
+			}
+
 			for (String statement : shuffeled) {
 				RadioButton rb = new RadioButton(statement);
 				rb.setUserData(statement);
@@ -67,7 +74,10 @@ public class TestPane extends GridPane implements Observer {
 			quest.remove(random);
 		} catch (IllegalArgumentException e){
 			System.out.println("All questions answered");
-			//TODO fix score when everything is answererd
+			//TODO fix score when everything is answered
+		} catch (IllegalAccessException f) {
+			quest.remove(random);
+			System.out.println("Question without statments");
 		}
 
 		submitButton = new Button("Submit");
@@ -77,6 +87,10 @@ public class TestPane extends GridPane implements Observer {
 
 	public Question getCurrent() {
 		return this.current;
+	}
+
+	public List<Question> getQuest() {
+		return this.quest;
 	}
 
 	public void setProcessAnswerAction(EventHandler<ActionEvent> processAnswerAction) {
