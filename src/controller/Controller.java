@@ -180,7 +180,8 @@ public class Controller implements Subject {
         testPane.setProcessAnswerAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                List<String> awnsered_by_user = testPane.getSelectedStatements();
+                String awnsered_by_user = testPane.getSelectedStatements();
+                System.out.println(awnsered_by_user);
                 String correct = testPane.getCurrent().getSolution();
                 //TODO
                 popup.close();

@@ -11,10 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import model.Category;
 import model.Question;
@@ -62,6 +59,7 @@ public class TestPane extends GridPane implements Observer {
 
 			for (String statement : shuffeled) {
 				RadioButton rb = new RadioButton(statement);
+				rb.setUserData(statement);
 				rb.setToggleGroup(statementGroup);
 				this.add(rb, 0, rowIndex, 1, 1);
 				rowIndex++;
@@ -85,11 +83,10 @@ public class TestPane extends GridPane implements Observer {
 		submitButton.setOnAction(processAnswerAction);
 	}
 
-	public List<String> getSelectedStatements() {
-		 List<String> selected = new ArrayList<String>();
-		if(statementGroup.getSelectedToggle() != null){
-			String temp = statementGroup.getSelectedToggle().getUserData().toString();
-			selected.add(temp);
+	public String getSelectedStatements() {
+		String selected = "";
+		if(this.statementGroup.getSelectedToggle() != null) {
+			selected = this.statementGroup.getSelectedToggle().getUserData().toString();
 		}
 		return selected;
 	}
