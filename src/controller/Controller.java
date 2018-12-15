@@ -174,20 +174,20 @@ public class Controller implements Subject {
         return categoryDetailPane;
     }
 
-    public void showTestPane(){
+    public void showTestPane() {
         this.testPane = new TestPane(questions, this);
 
         testPane.setProcessAnswerAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String awnsered_by_user = testPane.getSelectedStatements();
-                System.out.println(awnsered_by_user);
+                String answered_by_user = testPane.getSelectedStatements();
+                System.out.println(answered_by_user);
                 String correct = testPane.getCurrent().getSolution();
                 System.out.println(correct);
                 popup.close();
 
-                if(awnsered_by_user.equals(correct)) {
-                    testPane.getCurrent().getCategory().addToScore();
+                if(answered_by_user.equals(correct)) {
+                    addScore(testPane.getCurrent().getCategory());
                 }
 
                 getTotal();
@@ -207,6 +207,14 @@ public class Controller implements Subject {
         Scene dialogScene = new Scene(testPane);
         popup.setScene(dialogScene);
         popup.show();
+    }
+
+    private void addScore(Category category) {
+        for(Category c : categories) {
+            if (c.equals(category)) {
+                c.addToScore();
+            }
+        }
     }
 
     private void getTotal() {
