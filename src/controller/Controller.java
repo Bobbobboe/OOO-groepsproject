@@ -177,6 +177,10 @@ public class Controller implements Subject {
     public void showTestPane() {
         this.testPane = new TestPane(questions, this);
 
+        for(Category c : categories) {
+            c.setScore(0);
+        }
+
         testPane.setProcessAnswerAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -195,6 +199,7 @@ public class Controller implements Subject {
                 if(testPane.getQuest().size() != 0) {
                     showTestPane();
                 } else {
+                    notifyObserver();
                     showMessagePane();
                 }
 
@@ -223,7 +228,23 @@ public class Controller implements Subject {
         }
     }
 
-    private int getMaxScore(Category c) {
+    public int totalScore() {
+        int max = 0;
+        for(Category c : this.categories) {
+            max += c.getScore();
+        }
+        return max;
+    }
+
+    public int getTotalMaxScore() {
+        int max = 0;
+        for(Question q : db.getAllQuestions()) {
+            max += 1;
+        }
+        return max;
+    }
+
+    public int getMaxScore(Category c) {
         int max = 0;
         for(Question q : db.getAllQuestions()) {
             if(q.getCategory().equals(c)) {
@@ -234,7 +255,7 @@ public class Controller implements Subject {
     }
 
     public MessagePane showMessagePane(){
-        return new MessagePane();
+        return new MessagePane(this);
     }
 
     //Methods for the stage component

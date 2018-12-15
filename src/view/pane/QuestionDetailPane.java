@@ -81,13 +81,13 @@ public class QuestionDetailPane extends GridPane {
 		
 	}
 
-	public void addStatementsToTextArea() {
+	private void addStatementsToTextArea() {
 		for(String s : statements) {
 			this.statementsArea.setText(s + "\n");
 		}
 	}
 
-	public void addStatementToTextArea(String statement) {
+	private void addStatementToTextArea(String statement) {
 		this.statementsArea.appendText(statement + "\n");
 	}
 
