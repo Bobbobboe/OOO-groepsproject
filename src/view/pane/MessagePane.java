@@ -73,5 +73,7 @@ public class MessagePane extends GridPane implements Observer {
 	public void update(ObservableList<Category> categories, ObservableList<Question> questions) {
 		this.categories = categories;
 		this.questions = questions;
+		this.scoreArea.clear();
+		addScoresToTextArea();
 	}
 }
