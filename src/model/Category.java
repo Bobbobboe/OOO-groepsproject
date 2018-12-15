@@ -8,10 +8,12 @@ public abstract class Category implements Serializable, Subject {
 
     private String name;
     private String description;
+    private int score;
 
     public Category(String name, String description){
         setDescription(description);
         setName(name);
+        this.score = 0;
     }
 
     public String getName() {
@@ -28,6 +30,18 @@ public abstract class Category implements Serializable, Subject {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getScore() {
+        return this.score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void addToScore() {
+        this.score += 1;
     }
 
     @Override

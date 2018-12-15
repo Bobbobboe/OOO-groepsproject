@@ -187,6 +187,11 @@ public class Controller implements Subject {
                 System.out.println(correct);
                 popup.close();
 
+                if(awnsered_by_user.equals(correct)) {
+                    testPane.getCurrent().getCategory().addToScore();
+                    System.out.println("Correct, your score is now " + testPane.getCurrent().getCategory().getScore());
+                }
+
                 if(testPane.getQuest().size() != 0) {
                     showTestPane();
                 } else {
