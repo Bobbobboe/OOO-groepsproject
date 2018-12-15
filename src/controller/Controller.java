@@ -177,25 +177,18 @@ public class Controller implements Subject {
     public void showTestPane() {
         this.testPane = new TestPane(questions, this);
 
-        for(Category c : categories) {
-            c.setScore(0);
-        }
-
         testPane.setProcessAnswerAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 String answered_by_user = testPane.getSelectedStatements();
-                System.out.println(answered_by_user);
                 String correct = testPane.getCurrent().getSolution();
-                System.out.println(correct);
-                popup.close();
 
                 if(answered_by_user.equals(correct)) {
                     addScore(testPane.getCurrent().getCategory());
                 }
 
                 getTotal();
-
+                popup.close();
                 if(testPane.getQuest().size() != 0) {
                     showTestPane();
                 } else {
