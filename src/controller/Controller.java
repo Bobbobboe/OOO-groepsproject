@@ -57,20 +57,20 @@ public class Controller implements Subject {
          });
     }
 
-    public void enrollCategory(String name, String description, Category category) throws DomainExeption {
+    private void enrollCategory(String name, String description, Category category) throws DomainExeption {
         CategoryFactory factory = new CategoryFactory();
         Category c = factory.createCategory(name,description,category);
         addCategory(c);
     }
 
-    public void addCategory(Category category) throws DomainExeption {
+    private void addCategory(Category category) throws DomainExeption {
         if(category == null) throw new DomainExeption();
         categories.add(category);
         db.add(category);
         notifyObserver();
     }
 
-    public void addQuestion(Question question) {
+    private void addQuestion(Question question) {
         if(question == null) throw new DomainExeption();
         questions.add(question);
         db.add(question);
@@ -174,8 +174,7 @@ public class Controller implements Subject {
         return categoryDetailPane;
     }
 
-    public TestPane showTestPane(){
-
+    public void showTestPane(){
         this.testPane = new TestPane(questions, this);
 
         testPane.setProcessAnswerAction(new EventHandler<ActionEvent>() {
@@ -189,8 +188,9 @@ public class Controller implements Subject {
 
                 if(awnsered_by_user.equals(correct)) {
                     testPane.getCurrent().getCategory().addToScore();
-                    System.out.println("Correct, your score is now " + testPane.getCurrent().getCategory().getScore() + " / " + getMaxScore(testPane.getCurrent().getCategory()));
                 }
+
+                getTotal();
 
                 if(testPane.getQuest().size() != 0) {
                     showTestPane();
@@ -207,10 +207,15 @@ public class Controller implements Subject {
         Scene dialogScene = new Scene(testPane);
         popup.setScene(dialogScene);
         popup.show();
-        return testPane;
     }
 
-    public int getMaxScore(Category c) {
+    private void getTotal() {
+        for(Category c: this.categories) {
+            System.out.println(c.getName() + " : " + c.getScore() + "/" + getMaxScore(c));
+        }
+    }
+
+    private int getMaxScore(Category c) {
         int max = 0;
         for(Question q : db.getAllQuestions()) {
             if(q.getCategory().equals(c)) {
