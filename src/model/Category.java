@@ -1,5 +1,6 @@
 package model;
 
+import javafx.collections.ObservableList;
 import view.Observer;
 
 import java.io.Serializable;
@@ -62,5 +63,16 @@ public abstract class Category implements Serializable, Subject {
     @Override
     public void notifyObserver() {
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof Category) {
+            Category c = (Category) o;
+            if(this.getName().equals(c.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

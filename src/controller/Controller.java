@@ -189,13 +189,13 @@ public class Controller implements Subject {
 
                 if(awnsered_by_user.equals(correct)) {
                     testPane.getCurrent().getCategory().addToScore();
-                    System.out.println("Correct, your score is now " + testPane.getCurrent().getCategory().getScore());
+                    System.out.println("Correct, your score is now " + testPane.getCurrent().getCategory().getScore() + " / " + getMaxScore(testPane.getCurrent().getCategory()));
                 }
 
                 if(testPane.getQuest().size() != 0) {
                     showTestPane();
                 } else {
-
+                    showMessagePane();
                 }
 
             }
@@ -208,6 +208,16 @@ public class Controller implements Subject {
         popup.setScene(dialogScene);
         popup.show();
         return testPane;
+    }
+
+    public int getMaxScore(Category c) {
+        int max = 0;
+        for(Question q : db.getAllQuestions()) {
+            if(q.getCategory().equals(c)) {
+                max += 1;
+            }
+        }
+        return max;
     }
 
     public MessagePane showMessagePane(){
