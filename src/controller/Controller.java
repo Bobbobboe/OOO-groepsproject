@@ -7,7 +7,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.*;
@@ -183,12 +186,18 @@ public class Controller implements Subject {
                 String answered_by_user = testPane.getSelectedStatements();
                 String correct = testPane.getCurrent().getSolution();
 
+                popup.close();
+                
                 if(answered_by_user.equals(correct)) {
                     addScore(testPane.getCurrent().getCategory());
                 }
 
-                getTotal();
-                popup.close();
+                if(!answered_by_user.equals(correct)) {
+                    showFeedbackPopup(testPane.getCurrent());
+                }
+
+
+
                 if(testPane.getQuest().size() != 0) {
                     showTestPane();
                 } else {
@@ -207,17 +216,35 @@ public class Controller implements Subject {
         popup.show();
     }
 
+    private void showFeedbackPopup(Question current) {
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.WINDOW_MODAL);
+        dialog.initOwner(popup);
+
+        VBox dialogVbox = new VBox(20);
+        dialogVbox.getChildren().add(new Text(current.getFeedback()));
+
+        Button button = new Button("Ok");
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                dialog.close();
+            }
+        });
+
+        dialogVbox.getChildren().add(button);
+
+        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        dialog.setScene(dialogScene);
+
+        dialog.show();
+    }
+
     private void addScore(Category category) {
         for(Category c : categories) {
             if (c.equals(category)) {
                 c.addToScore();
             }
-        }
-    }
-
-    private void getTotal() {
-        for(Category c: this.categories) {
-            System.out.println(c.getName() + " : " + c.getScore() + "/" + getMaxScore(c));
         }
     }
 
