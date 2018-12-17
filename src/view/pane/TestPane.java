@@ -11,8 +11,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Category;
 import model.Question;
 import view.Observer;
@@ -74,7 +79,7 @@ public class TestPane extends GridPane implements Observer {
 			quest.remove(random);
 		} catch (IllegalArgumentException e){
 			System.out.println("All questions answered");
-			this.quest = this.service.getQuestions();
+			fillQuest();
 		} catch (IllegalAccessException f) {
 			quest.remove(random);
 			System.out.println("Question without statments");
@@ -83,6 +88,10 @@ public class TestPane extends GridPane implements Observer {
 		submitButton = new Button("Submit");
 		add(submitButton,0, 58, 1, 1);
 
+	}
+
+	private void fillQuest() {
+		this.quest = this.service.getQuestions();
 	}
 
 	public Question getCurrent() {
