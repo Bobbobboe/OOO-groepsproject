@@ -32,7 +32,7 @@ public class TestPane extends GridPane implements Observer {
 		service = controller;
 		service.addObserver(this);
 		this.questions = questions;
-		this.quest = questions;
+		this.quest = new ArrayList<>(questions);
 
 		this.setPrefHeight(300);
 		this.setPrefWidth(750);
@@ -74,7 +74,7 @@ public class TestPane extends GridPane implements Observer {
 			quest.remove(random);
 		} catch (IllegalArgumentException e){
 			System.out.println("All questions answered");
-			//TODO fix score when everything is answered
+			this.quest = this.service.getQuestions();
 		} catch (IllegalAccessException f) {
 			quest.remove(random);
 			System.out.println("Question without statments");
