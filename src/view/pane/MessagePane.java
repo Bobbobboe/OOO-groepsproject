@@ -63,10 +63,13 @@ public class MessagePane extends GridPane implements Observer {
 	}
 
 	private void addScoresToTextArea() {
-		this.scoreArea.appendText("Your score is : " + service.totalScore() + "/" + service.getTotalMaxScore() + "\n");
-		for(Category c : categories) {
-			this.scoreArea.appendText(c.getName() + " : " + c.getScore() + "/" + service.getMaxScore(c) + "\n");
+		if(this.service.totalScore() != 0) {
+			this.scoreArea.appendText("Your score is : " + service.totalScore() + "/" + service.getTotalMaxScore() + "\n");
+			for(Category c : categories) {
+				this.scoreArea.appendText(c.getName() + " : " + c.getScore() + "/" + service.getMaxScore(c) + "\n");
+			}
 		}
+
 	}
 
 	@Override

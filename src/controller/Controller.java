@@ -187,7 +187,7 @@ public class Controller implements Subject {
                 String correct = testPane.getCurrent().getSolution();
 
                 popup.close();
-                
+
                 if(answered_by_user.equals(correct)) {
                     addScore(testPane.getCurrent().getCategory());
                 }
@@ -196,12 +196,11 @@ public class Controller implements Subject {
                     showFeedbackPopup(testPane.getCurrent());
                 }
 
-
+                notifyObserver();
 
                 if(testPane.getQuest().size() != 0) {
-                    showTestPane();
+
                 } else {
-                    notifyObserver();
                     showMessagePane();
                 }
 
