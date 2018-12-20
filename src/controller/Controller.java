@@ -36,6 +36,7 @@ public class Controller implements Subject {
     CategoryDetailPane categoryDetailPane;
     QuestionDetailPane questionDetailPane;
     TestPane testPane;
+    MessagePane messagePane;
     Stage popup = new Stage();
     Group root = new Group();
     Properties properties;
@@ -197,7 +198,9 @@ public class Controller implements Subject {
                 notifyObserver();
 
                 if(testPane.getQuest().size() != 0) {
-
+                    if(getTotalMaxScore() == totalScore()) {
+                        messagePane.writeSuccessToMessagePane();
+                    }
                 } else {
                     showMessagePane();
                 }
@@ -272,7 +275,8 @@ public class Controller implements Subject {
     }
 
     public MessagePane showMessagePane(){
-        return new MessagePane(this);
+        this.messagePane = new MessagePane(this);
+        return this.messagePane;
     }
 
     //Methods for the stage component

@@ -69,7 +69,10 @@ public class MessagePane extends GridPane implements Observer {
 				this.scoreArea.appendText(c.getName() + " : " + c.getScore() + "/" + service.getMaxScore(c) + "\n");
 			}
 		}
+	}
 
+	public void writeSuccessToMessagePane() {
+		this.scoreArea.setText("Schitterend! Alles Perfect!");
 	}
 
 	@Override
