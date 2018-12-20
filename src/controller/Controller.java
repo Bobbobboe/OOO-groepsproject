@@ -16,11 +16,13 @@ import javafx.stage.Stage;
 import model.*;
 import model.db.Database;
 import model.db.DatabaseText;
+import model.db.PropertiesFileLoader;
 import view.Observer;
 import view.pane.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 
 public class Controller implements Subject {
@@ -36,12 +38,16 @@ public class Controller implements Subject {
     TestPane testPane;
     Stage popup = new Stage();
     Group root = new Group();
+    Properties properties;
 
     ObservableList<Category> categories;
     ObservableList<Question> questions;
 
     public Controller() {
          db = new DatabaseText();
+         properties = new Properties();
+         properties = PropertiesFileLoader.loadEvalutationProperties();
+
          categories = FXCollections.observableArrayList(db.getAllCategories());
          questions = FXCollections.observableArrayList(db.getAllQuestions());
 
@@ -58,6 +64,8 @@ public class Controller implements Subject {
                  notifyObserver();
              }
          });
+
+
     }
 
     private void enrollCategory(String name, String description, Category category) throws DomainExeption {
@@ -81,18 +89,10 @@ public class Controller implements Subject {
     }
 
     public ObservableList<Category> getCategories(){
-//        addCategory(new MainCategory("Design Principles", "The SOLID design principles"));
-//        addCategory(new MainCategory("Design patterns", "Design patterns learned this year"));
-//        addCategory(new MainCategory("Java", "Java extra's"));
-//        addCategory(new MainCategory("UML", "Technique for drawing class diagrams"));
-
         return categories;
     }
 
     public ObservableList<Question> getQuestions(){
-//        addQuestion(new Question("Welk patroon definieert een familie van algoritmes, kapselt ze in en maakt ze uitwisselbaar ?", db.getCategory(0), "Positive"));
-//        addQuestion(new Question("Welk ontwerp patroon is het minst van toepassing op het strategy patroon ?", db.getCategory(1), "Negative"));
-
         return questions;
     }
 
@@ -116,8 +116,6 @@ public class Controller implements Subject {
         });
         return pane;
     }
-
-
 
     public CategoryOverviewPane showCategoryOverviewPane(){
         CategoryOverviewPane pane =  new CategoryOverviewPane(this);
@@ -192,7 +190,7 @@ public class Controller implements Subject {
                     addScore(testPane.getCurrent().getCategory());
                 }
 
-                if(!answered_by_user.equals(correct)) {
+                if(!answered_by_user.equals(correct) && properties.getProperty("evaluation.mode").equals("score")) {
                     showFeedbackPopup(testPane.getCurrent());
                 }
 
