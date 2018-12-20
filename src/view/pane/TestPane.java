@@ -22,23 +22,15 @@ import model.Category;
 import model.Question;
 import view.Observer;
 
-public class TestPane extends GridPane implements Observer {
+public class TestPane extends GridPane {
 	private Label questionField;
 	private Button submitButton;
 	private ToggleGroup statementGroup;
-	private List<Question> questions;
-	private List<Question>quest;
 	private Controller service;
-	private Question current;
 	private int random;
 
 
-	public TestPane (List<Question> questions, Controller controller) {
-		service = controller;
-		service.addObserver(this);
-		this.questions = questions;
-		this.quest = new ArrayList<>(questions);
-
+	public TestPane (Question question) {
 		this.setPrefHeight(300);
 		this.setPrefWidth(750);
 		
@@ -52,54 +44,27 @@ public class TestPane extends GridPane implements Observer {
 		statementGroup = new ToggleGroup();
 		statementGroup.setUserData("statements");
 
-		try {
-			random = new Random().nextInt(quest.size());
 
-			this.current = quest.get(random);
 
-			this.add(new Label(current.toString()),0, 1, 1,1);
+		this.add(new Label(question.toString()),0, 1, 1,1);
 
-			int rowIndex = 3;
-			List<String> statemtents = quest.get(random).getStatments();
-			List<String> shuffeled = new ArrayList<>(statemtents);
+		int rowIndex = 3;
+		List<String> statemtents = question.getStatments();
+		List<String> shuffeled = new ArrayList<>(statemtents);
+		Collections.shuffle(shuffeled);
 
-			Collections.shuffle(shuffeled);
-
-			if(this.current.getStatements().size() == 0) {
-				throw new IllegalAccessException("No statements");
-			}
-
-			for (String statement : shuffeled) {
-				RadioButton rb = new RadioButton(statement);
-				rb.setUserData(statement);
-				rb.setToggleGroup(statementGroup);
-				this.add(rb, 0, rowIndex, 1, 1);
-				rowIndex++;
-			}
-			quest.remove(random);
-		} catch (IllegalArgumentException e){
-			System.out.println("All questions answered");
-			fillQuest();
-		} catch (IllegalAccessException f) {
-			quest.remove(random);
-			System.out.println("Question without statments");
+		for (String statement : shuffeled) {
+			RadioButton rb = new RadioButton(statement);
+			rb.setUserData(statement);
+			rb.setToggleGroup(statementGroup);
+			this.add(rb, 0, rowIndex, 1, 1);
+			rowIndex++;
 		}
+
 
 		submitButton = new Button("Submit");
 		add(submitButton,0, 58, 1, 1);
 
-	}
-
-	private void fillQuest() {
-		this.quest = this.service.getQuestions();
-	}
-
-	public Question getCurrent() {
-		return this.current;
-	}
-
-	public List<Question> getQuest() {
-		return this.quest;
 	}
 
 	public void setProcessAnswerAction(EventHandler<ActionEvent> processAnswerAction) {
@@ -112,11 +77,5 @@ public class TestPane extends GridPane implements Observer {
 			selected = this.statementGroup.getSelectedToggle().getUserData().toString();
 		}
 		return selected;
-	}
-
-	@Override
-	public void update(ObservableList<Category> categories, ObservableList<Question> questions) {
-		this.questions = questions;
-		this.quest = questions;
 	}
 }

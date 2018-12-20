@@ -75,6 +75,11 @@ public class MessagePane extends GridPane implements Observer {
 		this.scoreArea.setText("Schitterend! Alles Perfect!");
 	}
 
+	public void writeEvaluation(boolean done) {
+		if(done) this.scoreArea.setText("\n\n\t\tYou have already done this evaluation");
+		else this.scoreArea.setText("\n\n\t\tYou never did this evaluation");
+	}
+
 	@Override
 	public void update(ObservableList<Category> categories, ObservableList<Question> questions) {
 		this.categories = categories;

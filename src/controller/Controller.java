@@ -44,6 +44,8 @@ public class Controller implements Subject {
     ObservableList<Category> categories;
     ObservableList<Question> questions;
 
+    Test test;
+    Question current;
     public Controller() {
          db = new DatabaseText();
          properties = new Properties();
@@ -51,6 +53,8 @@ public class Controller implements Subject {
 
          categories = FXCollections.observableArrayList(db.getAllCategories());
          questions = FXCollections.observableArrayList(db.getAllQuestions());
+
+         test = new Test(questions, this);
 
          categories.addListener(new ListChangeListener<Category>() {
              @Override
@@ -177,34 +181,29 @@ public class Controller implements Subject {
     }
 
     public void showTestPane() {
-        this.testPane = new TestPane(questions, this);
+        if(test.isTestIsFinished()) {
+            test.restartTest();
+            resetAllScores();
+        }
+        this.current = test.getNextQuestion();
+        this.testPane = new TestPane(current);
 
         testPane.setProcessAnswerAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 String answered_by_user = testPane.getSelectedStatements();
-                String correct = testPane.getCurrent().getSolution();
-
                 popup.close();
 
-                if(answered_by_user.equals(correct)) {
-                    addScore(testPane.getCurrent().getCategory());
+                if(test.checkAnswers(current, answered_by_user)) {
+                    addScore(current.getCategory());
                 }
 
-                if(!answered_by_user.equals(correct) && properties.getProperty("evaluation.mode").equals("score")) {
-                    showFeedbackPopup(testPane.getCurrent());
+                if(!test.checkAnswers(current, answered_by_user) && properties.getProperty("evaluation.mode").equals("score")) {
+                    showFeedbackPopup(current);
                 }
 
                 notifyObserver();
-
-                if(testPane.getQuest().size() != 0) {
-                    if(getTotalMaxScore() == totalScore()) {
-                        messagePane.writeSuccessToMessagePane();
-                    }
-                } else {
-                    showMessagePane();
-                }
-
+                showMessagePane();
             }
         });
 
@@ -238,6 +237,12 @@ public class Controller implements Subject {
         dialog.setScene(dialogScene);
 
         dialog.show();
+    }
+
+    private void resetAllScores() {
+        for(Category c: categories) {
+            c.setScore(0);
+        }
     }
 
     private void addScore(Category category) {
@@ -276,6 +281,7 @@ public class Controller implements Subject {
 
     public MessagePane showMessagePane(){
         this.messagePane = new MessagePane(this);
+        this.messagePane.writeEvaluation(this.test.isTestIsFinished());
         return this.messagePane;
     }
 
