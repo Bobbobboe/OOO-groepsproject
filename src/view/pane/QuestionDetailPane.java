@@ -1,6 +1,7 @@
 package view.pane;
 
 import controller.Controller;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,9 +26,12 @@ public class QuestionDetailPane extends GridPane {
 	private Button btnAdd, btnRemove;
 	private ComboBox categoryField;
 	private ArrayList<String> statements;
+	private ObservableList<String> observablestatements;
 
 	public QuestionDetailPane(ObservableList<Category> categories) {
 		this.statements = new ArrayList<>();
+		this.observablestatements = FXCollections.observableArrayList(statements);
+
 		this.setPrefHeight(300);
 		this.setPrefWidth(320);
 
@@ -77,6 +81,8 @@ public class QuestionDetailPane extends GridPane {
 		btnOK = new Button("Save");
 		btnOK.isDefaultButton();
 		btnOK.setText("Save");
+		btnOK.disableProperty().bind(Bindings.isEmpty(this.observablestatements));
+
 		add(btnOK, 1, 11, 2, 1);
 
 	}
@@ -127,6 +133,7 @@ public class QuestionDetailPane extends GridPane {
 		@Override
 		public void handle(ActionEvent e) {
 			statements.add(getStatementField().getText());
+			observablestatements.add(getStatementField().getText());
 			addStatementToTextArea(statementField.getText());
 			statementField.clear();
 		}
