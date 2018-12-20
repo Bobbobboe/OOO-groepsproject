@@ -76,8 +76,7 @@ public class MessagePane extends GridPane implements Observer {
 	}
 
 	public void writeEvaluation(boolean done) {
-		if(done) this.scoreArea.setText("\n\n\t\tYou have already done this evaluation");
-		else this.scoreArea.setText("\n\n\t\tYou never did this evaluation");
+		if(!done) this.scoreArea.setText("\n\n\t\tYou never did this evaluation");
 	}
 
 	@Override
