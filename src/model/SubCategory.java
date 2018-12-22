@@ -12,18 +12,13 @@ public class SubCategory extends Category {
     private String description;
 
     public SubCategory(String name, String description, Category category) {
-        super(name, description);
-        setCategory(category);
+        super(name, description, category);
         this.name = name;
         this.description = description;
     }
 
     public Category getCategory() {
         return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     @Override

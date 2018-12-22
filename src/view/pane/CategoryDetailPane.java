@@ -44,6 +44,18 @@ public class CategoryDetailPane extends GridPane {
 		this.add(btnOK, 1, 3, 1, 1);
 	}
 
+	public void setTitle(String title) {
+		this.titleField.setText(title);
+	}
+
+	public void setDescription(String description) {
+		this.descriptionField.setText(description);
+	}
+
+	public void setCategory(Category category) {
+		categoryField.getSelectionModel().select(category);
+	}
+
 	public TextField getTitleField() {
 		return titleField;
 	}

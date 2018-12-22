@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -136,6 +137,20 @@ public class Controller implements Subject {
                 popup.show();
             }
         });
+
+        pane.setEditAction(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                popup = new Stage();
+                popup.initModality(Modality.APPLICATION_MODAL);
+                popup.initOwner(primaryStage);
+
+                Scene dialogScene = new Scene(popupCategoryDetailPane(pane.getCategory()));
+                popup.setScene(dialogScene);
+                popup.show();
+            }
+        });
+
         return pane;
     }
 
@@ -177,6 +192,30 @@ public class Controller implements Subject {
                 popup.close();
             }
         });
+
+        return categoryDetailPane;
+    }
+
+    public CategoryDetailPane popupCategoryDetailPane(Category category) {
+        this.categoryDetailPane = new CategoryDetailPane(categories);
+        categoryDetailPane.setTitle(category.getName());
+        categoryDetailPane.setDescription(category.getDescription());
+        categoryDetailPane.setCategory(category.getMainCategory());
+        categoryDetailPane.setCancelAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                popup.close();
+            }
+        });
+
+        categoryDetailPane.setSaveAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                enrollCategory(categoryDetailPane.getTitleField().getText(), categoryDetailPane.getDescriptionField().getText(), (Category) categoryDetailPane.getCategoryField().getValue());
+                popup.close();
+            }
+        });
+
         return categoryDetailPane;
     }
 
@@ -351,6 +390,7 @@ public class Controller implements Subject {
     public void setBorderPane(AssesMainPane mainPane){
         this.assesMainPane = mainPane;
     }
+
     public BorderPane getBorderPane(){
         return assesMainPane;
     }

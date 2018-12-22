@@ -38,20 +38,26 @@ public class CategoryOverviewPane extends GridPane implements Observer {
 
         table = new TableView<>();
         table.setPrefWidth(REMAINING);
-        //ObservableList<Category> categories = FXCollections.observableArrayList(db.getAllCategories());
+
         categories = service.getCategories();
         table.setItems(categories);
+
         TableColumn nameCol = new TableColumn<>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory("name"));
         table.getColumns().add(nameCol);
+
         TableColumn descriptionCol = new TableColumn<>("Description");
         descriptionCol.setCellValueFactory(new PropertyValueFactory("description"));
         table.getColumns().add(descriptionCol);
-		this.add(table, 0, 1, 2, 6);
-		
+
+        this.add(table, 0, 1, 2, 6);
 		btnNew = new Button("New");
 		this.add(btnNew, 0, 11, 1, 1);
 	}
+
+	public Category getCategory() {
+        return (Category) table.getSelectionModel().getSelectedItem();
+    }
 
     public void setNewAction(EventHandler<ActionEvent> newAction) {
         btnNew.setOnAction(newAction);

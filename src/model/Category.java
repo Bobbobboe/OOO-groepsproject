@@ -10,10 +10,12 @@ public abstract class Category implements Serializable, Subject {
     private String name;
     private String description;
     private int score;
+    private Category mainCategory;
 
-    public Category(String name, String description){
+    public Category(String name, String description, Category category){
         setDescription(description);
         setName(name);
+        setMainCategory(category);
         this.score = 0;
     }
 
@@ -43,6 +45,14 @@ public abstract class Category implements Serializable, Subject {
 
     public void addToScore() {
         this.score += 1;
+    }
+
+    public Category getMainCategory() {
+        return this.mainCategory;
+    }
+
+    public void setMainCategory(Category category) {
+        this.mainCategory = category;
     }
 
     @Override
