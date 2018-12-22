@@ -189,7 +189,8 @@ public class Controller implements Subject {
         return questionDetailPane;
     }
 
-    public QuestionDetailPane popupQuestionDetailPane(Question question){
+    public QuestionDetailPane popupQuestionDetailPane(Question question) {
+        int id = questions.indexOf(question);
         this.questionDetailPane = new QuestionDetailPane(categories);
         this.questionDetailPane.setQuestion(question.getQuestion());
         this.questionDetailPane.setCategory(question.getCategory());
@@ -208,7 +209,9 @@ public class Controller implements Subject {
             public void handle(ActionEvent event) {
                 Question q = new Question(questionDetailPane.getQuestionField().getText(), (Category) questionDetailPane.getCategoryField().getValue(), questionDetailPane.getFeedbackField().getText());
                 q.addStatements(questionDetailPane.getStatements());
-                addQuestion(q);
+                db.updateQuestion(id, q);
+                db.updateQuestions();
+                questions.set(id, q);
                 popup.close();
             }
         });
@@ -236,6 +239,7 @@ public class Controller implements Subject {
     }
 
     public CategoryDetailPane popupCategoryDetailPane(Category category) {
+        int id = categories.indexOf(category);
         this.categoryDetailPane = new CategoryDetailPane(categories);
         categoryDetailPane.setTitle(category.getName());
         categoryDetailPane.setDescription(category.getDescription());
@@ -250,7 +254,11 @@ public class Controller implements Subject {
         categoryDetailPane.setSaveAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                enrollCategory(categoryDetailPane.getTitleField().getText(), categoryDetailPane.getDescriptionField().getText(), (Category) categoryDetailPane.getCategoryField().getValue());
+                CategoryFactory factory = new CategoryFactory();
+                Category c = factory.createCategory(categoryDetailPane.getTitleField().getText(), categoryDetailPane.getDescriptionField().getText(), (Category) categoryDetailPane.getCategoryField().getValue());
+                db.updateCategory(id, c);
+                db.updateCategories();
+                categories.set(id, c);
                 popup.close();
             }
         });

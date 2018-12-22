@@ -61,6 +61,24 @@ public class DatabaseText implements Database, Serializable {
     }
 
     @Override
+    public void updateCategory(int id, Category update) {
+        Category category = categories.get(id);
+        category.setMainCategory(update.getMainCategory());
+        category.setScore(update.getScore());
+        category.setDescription(update.getDescription());
+        category.setName(update.getName());
+    }
+
+    @Override
+    public void updateQuestion(int id, Question update) {
+        Question question = questions.get(id);
+        question.setCategory(update.getCategory());
+        question.setFeedback(update.getFeedback());
+        question.setQuestion(update.getQuestion());
+        question.addStatements(update.getStatments());
+    }
+
+    @Override
     public List<Category> getAllCategories() {
         return categories;
     }

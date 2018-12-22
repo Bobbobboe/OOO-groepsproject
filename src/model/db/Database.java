@@ -16,6 +16,9 @@ public interface Database {
     void deleteCategory(int id);
     void deleteQuestion(int id);
 
+    void updateCategory(int id, Category category);
+    void updateQuestion(int id, Question question);
+
     List<Category> getAllCategories();
     List<Question> getAllQuestions();
 
