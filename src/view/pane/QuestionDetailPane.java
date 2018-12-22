@@ -18,6 +18,7 @@ import javafx.scene.layout.Pane;
 import model.Category;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class QuestionDetailPane extends GridPane {
 	private Button btnOK, btnCancel;
@@ -25,7 +26,7 @@ public class QuestionDetailPane extends GridPane {
 	private TextField questionField, statementField, feedbackField;
 	private Button btnAdd, btnRemove;
 	private ComboBox categoryField;
-	private ArrayList<String> statements;
+	private List<String> statements;
 	private ObservableList<String> observablestatements;
 
 	public QuestionDetailPane(ObservableList<Category> categories) {
@@ -87,9 +88,26 @@ public class QuestionDetailPane extends GridPane {
 
 	}
 
+	public void setStatements(List<String> statements) {
+		this.statements = statements;
+		addStatementsToTextArea();
+	}
+
+	public void setQuestion(String question) {
+		this.questionField.setText(question);
+	}
+
+	public void setFeedback(String feedback) {
+		this.feedbackField.setText(feedback);
+	}
+
+	public void setCategory(Category category) {
+		this.categoryField.getSelectionModel().select(category);
+	}
+
 	private void addStatementsToTextArea() {
 		for(String s : statements) {
-			this.statementsArea.setText(s + "\n");
+			this.statementsArea.appendText(s + "\n");
 		}
 	}
 
@@ -117,7 +135,7 @@ public class QuestionDetailPane extends GridPane {
 		return categoryField;
 	}
 
-	public ArrayList<String> getStatements() {
+	public List<String> getStatements() {
 		return statements;
 	}
 

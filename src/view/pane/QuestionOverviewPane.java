@@ -52,6 +52,10 @@ public class QuestionOverviewPane extends GridPane implements Observer {
         this.add(btnNew, 0, 11, 1, 1);
     }
 
+    public Question getSelectedQuestion() {
+        return (Question) table.getSelectionModel().getSelectedItem();
+    }
+
     public void setNewAction(EventHandler<ActionEvent> newAction) {
         btnNew.setOnAction(newAction);
     }

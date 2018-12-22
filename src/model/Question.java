@@ -36,7 +36,7 @@ public class Question implements Serializable {
         this.statments.add(statment);
     }
 
-    public void addStatements(ArrayList<String> statments) { this.statments.addAll(statments); }
+    public void addStatements(List<String> statments) { this.statments.addAll(statments); }
 
     public Category getCategory() {
         return category;

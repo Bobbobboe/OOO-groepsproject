@@ -120,6 +120,19 @@ public class Controller implements Subject {
                 popup.show();
             }
         });
+
+        pane.setEditAction(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                popup = new Stage();
+                popup.initModality(Modality.APPLICATION_MODAL);
+                popup.initOwner(primaryStage);
+
+                Scene popupScene = new Scene(popupQuestionDetailPane(pane.getSelectedQuestion()));
+                popup.setScene(popupScene);
+                popup.show();
+            }
+        });
         return pane;
     }
 
@@ -156,6 +169,32 @@ public class Controller implements Subject {
 
     public QuestionDetailPane popupQuestionDetailPane(){
         this.questionDetailPane = new QuestionDetailPane(categories);
+
+        questionDetailPane.setCancelAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                popup.close();
+            }
+        });
+
+        questionDetailPane.setSaveAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Question q = new Question(questionDetailPane.getQuestionField().getText(), (Category) questionDetailPane.getCategoryField().getValue(), questionDetailPane.getFeedbackField().getText());
+                q.addStatements(questionDetailPane.getStatements());
+                addQuestion(q);
+                popup.close();
+            }
+        });
+        return questionDetailPane;
+    }
+
+    public QuestionDetailPane popupQuestionDetailPane(Question question){
+        this.questionDetailPane = new QuestionDetailPane(categories);
+        this.questionDetailPane.setQuestion(question.getQuestion());
+        this.questionDetailPane.setCategory(question.getCategory());
+        this.questionDetailPane.setFeedback(question.getFeedback());
+        this.questionDetailPane.setStatements(question.getStatements());
 
         questionDetailPane.setCancelAction(new EventHandler<ActionEvent>() {
             @Override
