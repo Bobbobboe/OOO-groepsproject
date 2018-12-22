@@ -204,8 +204,12 @@ public class Controller implements Subject {
                     message = current.getFeedback();
                 }
 
+                if(test.testIsFinished()) {
+                    message = getScoreOverview();
+                }
+
                 if(test.testIsFinished() && totalScore() == getTotalMaxScore()) {
-                    message = "\n\n\t\t\tSchitterend! Alles perfect!";
+                    message = "\n\n\t\t\t\t\tSchitterend! Alles perfect!";
                 }
 
                 notifyObserver();
@@ -218,6 +222,43 @@ public class Controller implements Subject {
         Scene dialogScene = new Scene(testPane);
         popup.setScene(dialogScene);
         popup.show();
+    }
+
+    public void showPopupWindow() {
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(primaryStage);
+        VBox dialogVbox = new VBox(20);
+
+        Button okButton = new Button();
+        okButton.setText("Yes");
+        okButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                test.restartTest();
+                resetAllScores();
+                dialog.close();
+                showTestPane();
+            }
+        });
+
+        Button cancelButton = new Button();
+        cancelButton.setText("No");
+        cancelButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                dialog.close();
+                popup.close();
+            }
+        });
+
+        dialogVbox.getChildren().add(new Text("Would you like to restart the test"));
+        dialogVbox.getChildren().add(okButton);
+        dialogVbox.getChildren().add(cancelButton);
+
+        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
     }
 
     private String getScoreOverview() {
@@ -278,6 +319,10 @@ public class Controller implements Subject {
     //Methods for the stage component
     public void setStage(Stage primaryStage){
         this.primaryStage = primaryStage;
+    }
+
+    public Test getTest() {
+        return this.test;
     }
 
     public String getMessage() {

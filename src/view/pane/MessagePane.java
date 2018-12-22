@@ -53,55 +53,22 @@ public class MessagePane extends GridPane implements Observer {
 		testButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				service.showTestPane();
+				if(service.getTest().testIsFinished()) {
+					service.showPopupWindow();
+				}
+				else {
+					service.showTestPane();
+				}
 			}
 		});
+
 		add(testButton, 0,6,1,1);
 		setHalignment(testButton, HPos.CENTER);
 	}
 
-	public MessagePane (Controller service, String message) {
-		this.service = service;
-		service.addObserver(this);
-
-		this.categories = service.getCategories();
-		this.questions = service.getQuestions();
-
-		setBorder(new Border(new BorderStroke(Color.BLACK,
-				BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-
-		this.setPadding(new Insets(5, 5, 5, 5));
-		this.setVgap(5);
-		this.setHgap(5);
-
-		scoreArea = new TextArea();
-		scoreArea.setPrefRowCount(5);
-		scoreArea.setEditable(false);
-		setText(message);
-
-		add(scoreArea, 0, 0, 1, 5);
-
-		testButton = new Button("Evaluate");
-		testButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				service.showTestPane();
-			}
-		});
-		add(testButton, 0,6,1,1);
-		setHalignment(testButton, HPos.CENTER);
-	}
-
-	private void setText(String message) {
-		this.scoreArea.appendText(message);
-	}
-
-	public void writeSuccessToMessagePane() {
-		this.scoreArea.setText("Schitterend! Alles Perfect!");
-	}
 
 	public void writeEvaluation(boolean done) {
-		if(!done) this.scoreArea.setText("\n\n\t\tYou never did this evaluation");
+		if(!done) this.scoreArea.setText("\n\n\t\t\t\t\tYou never did this evaluation");
 	}
 
 	@Override
