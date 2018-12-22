@@ -75,7 +75,7 @@ public class DatabaseText implements Database, Serializable {
         question.setCategory(update.getCategory());
         question.setFeedback(update.getFeedback());
         question.setQuestion(update.getQuestion());
-        question.addStatements(update.getStatments());
+        question.setStatments(update.getStatments());
     }
 
     @Override

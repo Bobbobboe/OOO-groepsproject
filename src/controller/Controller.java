@@ -212,6 +212,7 @@ public class Controller implements Subject {
                 db.updateQuestion(id, q);
                 db.updateQuestions();
                 questions.set(id, q);
+                notifyObserver();
                 popup.close();
             }
         });
@@ -259,6 +260,7 @@ public class Controller implements Subject {
                 db.updateCategory(id, c);
                 db.updateCategories();
                 categories.set(id, c);
+                notifyObserver();
                 popup.close();
             }
         });

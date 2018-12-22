@@ -90,6 +90,7 @@ public class QuestionDetailPane extends GridPane {
 
 	public void setStatements(List<String> statements) {
 		this.statements = statements;
+		this.observablestatements.addAll(statements);
 		addStatementsToTextArea();
 	}
 

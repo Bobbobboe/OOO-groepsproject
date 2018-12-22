@@ -36,6 +36,10 @@ public class Question implements Serializable {
         this.statments.add(statment);
     }
 
+    public void setStatments(List<String> statments) {
+        this.statments = statments;
+    }
+
     public void addStatements(List<String> statments) { this.statments.addAll(statments); }
 
     public Category getCategory() {
