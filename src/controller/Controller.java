@@ -46,6 +46,8 @@ public class Controller implements Subject {
 
     Test test;
     Question current;
+    String message;
+
     public Controller() {
          db = new DatabaseText();
          properties = new Properties();
@@ -69,8 +71,6 @@ public class Controller implements Subject {
                  notifyObserver();
              }
          });
-
-
     }
 
     private void enrollCategory(String name, String description, Category category) throws DomainExeption {
@@ -181,10 +181,11 @@ public class Controller implements Subject {
     }
 
     public void showTestPane() {
-        if(test.isTestIsFinished()) {
+        if(test.testIsFinished()) {
             test.restartTest();
             resetAllScores();
         }
+
         this.current = test.getNextQuestion();
         this.testPane = new TestPane(current);
 
@@ -196,14 +197,18 @@ public class Controller implements Subject {
 
                 if(test.checkAnswers(current, answered_by_user)) {
                     addScore(current.getCategory());
+                    message = getScoreOverview();
                 }
 
                 if(!test.checkAnswers(current, answered_by_user) && properties.getProperty("evaluation.mode").equals("score")) {
-                    showFeedbackPopup(current);
+                    message = current.getFeedback();
+                }
+
+                if(test.testIsFinished() && totalScore() == getTotalMaxScore()) {
+                    message = "\n\n\t\t\tSchitterend! Alles perfect!";
                 }
 
                 notifyObserver();
-                showMessagePane();
             }
         });
 
@@ -215,28 +220,12 @@ public class Controller implements Subject {
         popup.show();
     }
 
-    private void showFeedbackPopup(Question current) {
-        final Stage dialog = new Stage();
-        dialog.initModality(Modality.WINDOW_MODAL);
-        dialog.initOwner(popup);
-
-        VBox dialogVbox = new VBox(20);
-        dialogVbox.getChildren().add(new Text(current.getFeedback()));
-
-        Button button = new Button("Ok");
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                dialog.close();
-            }
-        });
-
-        dialogVbox.getChildren().add(button);
-
-        Scene dialogScene = new Scene(dialogVbox, 300, 200);
-        dialog.setScene(dialogScene);
-
-        dialog.show();
+    private String getScoreOverview() {
+        String ret = "Your score is : " + totalScore() + "/" + getTotalMaxScore() +"\n";
+        for(Category c : categories) {
+                ret += c.getName() + " : " + c.getScore() + "/" + getMaxScore(c) + "\n";
+        }
+        return ret;
     }
 
     private void resetAllScores() {
@@ -279,15 +268,20 @@ public class Controller implements Subject {
         return max;
     }
 
-    public MessagePane showMessagePane(){
+    public MessagePane showMessagePane() {
         this.messagePane = new MessagePane(this);
-        this.messagePane.writeEvaluation(this.test.isTestIsFinished());
+        this.messagePane.writeEvaluation(this.test.isAlreadyPlayed());
         return this.messagePane;
     }
+
 
     //Methods for the stage component
     public void setStage(Stage primaryStage){
         this.primaryStage = primaryStage;
+    }
+
+    public String getMessage() {
+        return this.message;
     }
 
     public Stage getStage(){

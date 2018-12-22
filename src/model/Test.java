@@ -25,7 +25,7 @@ public class Test implements Observer {
     }
 
     public Question getNextQuestion() {
-        if(isTestIsFinished()) {
+        if(testIsFinished()) {
             return null;
         } if(quest.size() == 1) {
             this.alreadyPlayed =true;
@@ -36,7 +36,7 @@ public class Test implements Observer {
         return ret;
     }
 
-    public boolean isTestIsFinished() {
+    public boolean testIsFinished() {
         if(this.quest.size() == 0) {
             return true;
         }

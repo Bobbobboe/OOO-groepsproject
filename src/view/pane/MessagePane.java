@@ -28,7 +28,7 @@ public class MessagePane extends GridPane implements Observer {
 	private List<Question> questions;
 	private TextArea scoreArea;
 
-	public MessagePane (Controller service){
+	public MessagePane (Controller service) {
 		this.service = service;
 		service.addObserver(this);
 
@@ -43,11 +43,9 @@ public class MessagePane extends GridPane implements Observer {
         this.setHgap(5);
 
         scoreArea = new TextArea();
-
 		scoreArea.setPrefRowCount(5);
 		scoreArea.setEditable(false);
 
-		addScoresToTextArea();
 
 		add(scoreArea, 0, 0, 1, 5);
 
@@ -62,13 +60,40 @@ public class MessagePane extends GridPane implements Observer {
 		setHalignment(testButton, HPos.CENTER);
 	}
 
-	private void addScoresToTextArea() {
-		if(this.service.totalScore() != 0) {
-			this.scoreArea.appendText("Your score is : " + service.totalScore() + "/" + service.getTotalMaxScore() + "\n");
-			for(Category c : categories) {
-				this.scoreArea.appendText(c.getName() + " : " + c.getScore() + "/" + service.getMaxScore(c) + "\n");
+	public MessagePane (Controller service, String message) {
+		this.service = service;
+		service.addObserver(this);
+
+		this.categories = service.getCategories();
+		this.questions = service.getQuestions();
+
+		setBorder(new Border(new BorderStroke(Color.BLACK,
+				BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+
+		this.setPadding(new Insets(5, 5, 5, 5));
+		this.setVgap(5);
+		this.setHgap(5);
+
+		scoreArea = new TextArea();
+		scoreArea.setPrefRowCount(5);
+		scoreArea.setEditable(false);
+		setText(message);
+
+		add(scoreArea, 0, 0, 1, 5);
+
+		testButton = new Button("Evaluate");
+		testButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				service.showTestPane();
 			}
-		}
+		});
+		add(testButton, 0,6,1,1);
+		setHalignment(testButton, HPos.CENTER);
+	}
+
+	private void setText(String message) {
+		this.scoreArea.appendText(message);
 	}
 
 	public void writeSuccessToMessagePane() {
@@ -83,7 +108,6 @@ public class MessagePane extends GridPane implements Observer {
 	public void update(ObservableList<Category> categories, ObservableList<Question> questions) {
 		this.categories = categories;
 		this.questions = questions;
-		this.scoreArea.clear();
-		addScoresToTextArea();
+		this.scoreArea.setText(service.getMessage());
 	}
 }
