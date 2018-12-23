@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Properties;
 
 public class PropertiesFileLoader {
-    public static final String EVALUATIONPROPERTIESFILE = "src/model/db/evaluation.properties";
+    private static final String EVALUATIONPROPERTIESFILE = "src/model/db/evaluation.properties";
 
     public static Properties loadEvalutationProperties() {
         Properties properties = new Properties();

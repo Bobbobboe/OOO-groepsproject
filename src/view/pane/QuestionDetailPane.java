@@ -2,6 +2,7 @@ package view.pane;
 
 import controller.Controller;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -82,7 +83,9 @@ public class QuestionDetailPane extends GridPane {
 		btnOK = new Button("Save");
 		btnOK.isDefaultButton();
 		btnOK.setText("Save");
-		btnOK.disableProperty().bind(Bindings.isEmpty(this.observablestatements));
+
+		BooleanBinding bind = feedbackField.textProperty().isEmpty().or(questionField.textProperty().isEmpty()).or(categoryField.valueProperty().isNull()).or(statementsArea.textProperty().isEmpty());
+		btnOK.disableProperty().bind(bind);
 
 		add(btnOK, 1, 11, 2, 1);
 
