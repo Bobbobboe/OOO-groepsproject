@@ -1,5 +1,7 @@
 package view.pane;
 
+import com.sun.istack.internal.NotNull;
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -41,6 +43,8 @@ public class CategoryDetailPane extends GridPane {
 
 		btnOK = new Button("Save");
 		btnOK.isDefaultButton();
+		btnOK.disableProperty().bind(Bindings.and(titleField.textProperty().isEmpty(), descriptionField.textProperty().isEmpty()));
+		
 		this.add(btnOK, 1, 3, 1, 1);
 	}
 
