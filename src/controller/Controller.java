@@ -75,8 +75,7 @@ public class Controller implements Subject {
     }
 
     private void enrollCategory(String name, String description, Category category) throws DomainExeption {
-        CategoryFactory factory = new CategoryFactory();
-        Category c = factory.createCategory(name,description,category);
+        Category c = CategoryFactory.createCategory(name,description,category);
         addCategory(c);
     }
 
@@ -189,7 +188,7 @@ public class Controller implements Subject {
         return questionDetailPane;
     }
 
-    public QuestionDetailPane popupQuestionDetailPane(Question question) {
+    private QuestionDetailPane popupQuestionDetailPane(Question question) {
         int id = questions.indexOf(question);
         this.questionDetailPane = new QuestionDetailPane(categories);
         this.questionDetailPane.setQuestion(question.getQuestion());
@@ -239,7 +238,7 @@ public class Controller implements Subject {
         return categoryDetailPane;
     }
 
-    public CategoryDetailPane popupCategoryDetailPane(Category category) {
+    private CategoryDetailPane popupCategoryDetailPane(Category category) {
         int id = categories.indexOf(category);
         this.categoryDetailPane = new CategoryDetailPane(categories);
         categoryDetailPane.setTitle(category.getName());
@@ -255,8 +254,7 @@ public class Controller implements Subject {
         categoryDetailPane.setSaveAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                CategoryFactory factory = new CategoryFactory();
-                Category c = factory.createCategory(categoryDetailPane.getTitleField().getText(), categoryDetailPane.getDescriptionField().getText(), (Category) categoryDetailPane.getCategoryField().getValue());
+                Category c = CategoryFactory.createCategory(categoryDetailPane.getTitleField().getText(), categoryDetailPane.getDescriptionField().getText(), (Category) categoryDetailPane.getCategoryField().getValue());
                 db.updateCategory(id, c);
                 db.updateCategories();
                 categories.set(id, c);
@@ -371,7 +369,7 @@ public class Controller implements Subject {
         }
     }
 
-    public int totalScore() {
+    private int totalScore() {
         int max = 0;
         for(Category c : this.categories) {
             max += c.getScore();
@@ -379,7 +377,7 @@ public class Controller implements Subject {
         return max;
     }
 
-    public int getTotalMaxScore() {
+    private int getTotalMaxScore() {
         int max = 0;
         for(Question q : db.getAllQuestions()) {
             max += 1;
@@ -387,7 +385,7 @@ public class Controller implements Subject {
         return max;
     }
 
-    public int getMaxScore(Category c) {
+    private int getMaxScore(Category c) {
         int max = 0;
         for(Question q : db.getAllQuestions()) {
             if(q.getCategory().equals(c)) {
