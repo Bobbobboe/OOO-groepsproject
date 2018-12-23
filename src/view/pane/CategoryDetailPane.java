@@ -43,8 +43,8 @@ public class CategoryDetailPane extends GridPane {
 
 		btnOK = new Button("Save");
 		btnOK.isDefaultButton();
-		btnOK.disableProperty().bind(Bindings.and(titleField.textProperty().isEmpty(), descriptionField.textProperty().isEmpty()));
-		
+		btnOK.disableProperty().bind(Bindings.or(titleField.textProperty().isEmpty(), descriptionField.textProperty().isEmpty()));
+
 		this.add(btnOK, 1, 3, 1, 1);
 	}
 
